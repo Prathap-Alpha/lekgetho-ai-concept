@@ -80,6 +80,9 @@
     background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.95),rgba(173,216,255,.55) 36%,rgba(46,139,230,.18) 62%,transparent 74%);
     box-shadow:0 0 90px rgba(173,216,255,.55);animation:float 7s ease-in-out infinite}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  #globe3d{position:absolute;right:0;top:0;bottom:0;width:46%;z-index:0;pointer-events:none}
+  #globe3d canvas{display:block}
+  .tilt{transform-style:preserve-3d;transition:transform .12s ease;will-change:transform}
   .hero h2{margin:0 0 6px;font-size:23px;position:relative}
   .hero p{margin:0;color:#dbeaff;max-width:620px;position:relative}
   .progressbar{height:14px;background:#e9eef5;border-radius:10px;overflow:hidden}
@@ -183,6 +186,7 @@
   <!-- ===================== OVERVIEW ===================== -->
   <section class="view active" id="overview">
     <div class="hero">
+      <div id="globe3d" aria-hidden="true"></div>
       <h2>Helping BURS collect smarter — not harder.</h2>
       <p>A single AI-assisted platform across the four pillars of daily revenue work: real-time VAT clearance, taxpayer self-service, internal processing &amp; audit, and customs. Built to close the VAT gap and hit the P120&nbsp;billion 2024–2029 target.</p>
     </div>
@@ -749,6 +753,53 @@ function parseOCR(text){
   else{var m=document.getElementById('ocrMsg');if(m)m.innerHTML+='<div style="font-size:11px;color:var(--amber);margin-top:4px">No structured fields confidently parsed. Production uses a vision AI model for far higher accuracy.</div>';}
 }
 renderForm();
+
+/* ---------- 3D artifacts: WebGL hero globe + card tilt ---------- */
+var threeInit=false;
+function init3D(){
+  if(threeInit) return; var mount=document.getElementById('globe3d'); if(!mount) return; threeInit=true;
+  function build(){
+    try{
+      var W=mount.clientWidth||420, H=mount.clientHeight||220;
+      var scene=new THREE.Scene();
+      var cam=new THREE.PerspectiveCamera(45, W/H, 0.1, 100); cam.position.z=5;
+      var rnd=new THREE.WebGLRenderer({alpha:true, antialias:true});
+      rnd.setSize(W,H); rnd.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+      mount.appendChild(rnd.domElement);
+      var g=new THREE.Group(); scene.add(g);
+      var geo=new THREE.IcosahedronGeometry(1.5,1);
+      g.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({color:0x2E8BE6, transparent:true, opacity:0.12})));
+      g.add(new THREE.LineSegments(new THREE.WireframeGeometry(geo), new THREE.LineBasicMaterial({color:0x9fd0ff, transparent:true, opacity:0.6})));
+      var nodes=new THREE.Group(); scene.add(nodes); var dots=[];
+      for(var i=0;i<16;i++){
+        var m=new THREE.Mesh(new THREE.SphereGeometry(0.05,8,8), new THREE.MeshBasicMaterial({color:(i%3?0xffffff:0x2E8BE6)}));
+        m.userData={r:2.0+Math.random()*0.8, a:Math.random()*Math.PI*2, y:(Math.random()-0.5)*2.4, s:0.002+Math.random()*0.005};
+        nodes.add(m); dots.push(m);
+      }
+      function frame(){
+        g.rotation.y+=0.0035; g.rotation.x=0.22;
+        for(var k=0;k<dots.length;k++){var d=dots[k];d.userData.a+=d.userData.s;d.position.set(Math.cos(d.userData.a)*d.userData.r, d.userData.y, Math.sin(d.userData.a)*d.userData.r);}
+        nodes.rotation.y-=0.0012;
+        rnd.render(scene,cam); requestAnimationFrame(frame);
+      }
+      frame();
+      window.addEventListener('resize',function(){var w=mount.clientWidth,h=mount.clientHeight;if(w&&h){cam.aspect=w/h;cam.updateProjectionMatrix();rnd.setSize(w,h);}});
+    }catch(e){}
+  }
+  if(window.THREE){build();return;}
+  var sc=document.createElement('script');
+  sc.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  sc.onload=build; sc.onerror=function(){};
+  document.head.appendChild(sc);
+}
+function attachTilt(){
+  document.querySelectorAll('#overview .modcard, #overview .kpi').forEach(function(el){
+    el.classList.add('tilt');
+    el.addEventListener('mousemove',function(e){var r=el.getBoundingClientRect();var x=(e.clientX-r.left)/r.width-0.5,y=(e.clientY-r.top)/r.height-0.5;el.style.transform='perspective(800px) rotateY('+(x*8).toFixed(2)+'deg) rotateX('+(-y*8).toFixed(2)+'deg) translateZ(8px)';});
+    el.addEventListener('mouseleave',function(){el.style.transform='';});
+  });
+}
+setTimeout(function(){init3D();attachTilt();},350);
 </script>
 </body>
 </html>
