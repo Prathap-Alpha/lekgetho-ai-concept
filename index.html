@@ -842,7 +842,22 @@ function attachTilt(){
     el.addEventListener('mouseleave',function(){el.style.transform='';});
   });
 }
-setTimeout(function(){init3D();attachTilt();},350);
+/* Ambient full-page 3D wireframe field — drifts behind every tab (additive to the hero globe). */
+function initBg3D(){
+  if(window._bgInit)return; window._bgInit=true; var tries=0;
+  function build(){ try{
+    var mount=document.createElement('div');mount.id='bg3d';mount.setAttribute('aria-hidden','true');mount.style.cssText='position:fixed;inset:0;z-index:-1;pointer-events:none';document.body.appendChild(mount);
+    var W=window.innerWidth,H=window.innerHeight;
+    var scene=new THREE.Scene();var cam=new THREE.PerspectiveCamera(50,W/H,0.1,100);cam.position.z=10;
+    var rnd=new THREE.WebGLRenderer({alpha:true,antialias:true});rnd.setSize(W,H);rnd.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));mount.appendChild(rnd.domElement);
+    var geos=[new THREE.IcosahedronGeometry(1,0),new THREE.OctahedronGeometry(1,0),new THREE.DodecahedronGeometry(1,0)];var shapes=[];
+    for(var i=0;i<7;i++){var mesh=new THREE.LineSegments(new THREE.WireframeGeometry(geos[i%geos.length]),new THREE.LineBasicMaterial({color:0x9fd0ff,transparent:true,opacity:0.15}));mesh.scale.setScalar(0.8+Math.random()*2.2);mesh.position.set((Math.random()-0.5)*16,(Math.random()-0.5)*10,(Math.random()-0.5)*6-2);mesh.userData={rx:(Math.random()-0.5)*0.0016,ry:(Math.random()-0.5)*0.0016,fy:Math.random()*Math.PI*2};scene.add(mesh);shapes.push(mesh);}
+    var t=0;function frame(){t+=0.01;for(var k=0;k<shapes.length;k++){var m=shapes[k];m.rotation.x+=m.userData.rx;m.rotation.y+=m.userData.ry;m.position.y+=Math.sin(t+m.userData.fy)*0.0015;}rnd.render(scene,cam);requestAnimationFrame(frame);}frame();
+    window.addEventListener('resize',function(){var w=window.innerWidth,h=window.innerHeight;cam.aspect=w/h;cam.updateProjectionMatrix();rnd.setSize(w,h);});
+  }catch(e){} }
+  (function wait(){ if(window.THREE){build();return;} if(tries++>40)return; setTimeout(wait,200); })();
+}
+setTimeout(function(){init3D();initBg3D();attachTilt();},350);
 </script>
 </body>
 </html>
