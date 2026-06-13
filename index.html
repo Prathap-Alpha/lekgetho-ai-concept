@@ -113,6 +113,21 @@
   footer{max-width:1180px;margin:0 auto;padding:18px 22px 40px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line)}
   .flag{display:inline-flex;height:4px;width:60px;border-radius:3px;overflow:hidden;vertical-align:middle;margin-left:8px}
   .flag i{flex:1}.flag .lb{background:var(--blue)}.flag .bk{background:#000}.flag .wt{background:#fff}
+  .btn-ghost2{background:#eef3f9;color:var(--navy);border:1px solid var(--line);padding:7px 11px;font-size:12.5px}
+  .btn-ghost2:hover{background:#e2eaf3}
+  .dropzone{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:2px dashed var(--line);border-radius:12px;padding:22px;cursor:pointer;transition:.15s;background:#fbfcfe}
+  .dropzone:hover{border-color:var(--orange);background:#fffaf0}
+  .formtab{background:#eef3f9;border:1px solid var(--line);color:var(--navy);border-radius:7px;padding:5px 10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+  .formtab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .ffield{margin-bottom:10px}
+  .ffield label{display:block;font-size:10.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.3px;margin-bottom:3px}
+  .ffield input{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;font-size:13px;font-family:inherit;background:#fff}
+  .ffield.filled input{border-left:3px solid var(--green);background:#f4fbf6}
+  .fbadge{font-size:10px;color:var(--green);font-weight:700;margin-left:6px}
+  .fsec{font-size:11px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.4px;margin:14px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--line)}
+  .docthumb{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff;font-family:'Consolas',monospace;font-size:10.5px;color:#333;line-height:1.6}
+  .scanline{height:3px;background:var(--orange);border-radius:3px;animation:scan 1.1s ease-in-out infinite}
+  @keyframes scan{0%{width:5%}50%{width:100%}100%{width:5%}}
   @media(max-width:880px){.cols-4{grid-template-columns:repeat(2,1fr)}.cols-3{grid-template-columns:1fr}.cols-2{grid-template-columns:1fr}}
 </style>
 </head>
@@ -137,6 +152,7 @@
     <button class="tab active" data-v="overview">Overview</button>
     <button class="tab" data-v="einvoice">e-Invoicing (CTC)</button>
     <button class="tab" data-v="audit">Smart Audit</button>
+    <button class="tab" data-v="capture">Smart Capture</button>
     <button class="tab" data-v="service">Taxpayer Service</button>
     <button class="tab" data-v="backoffice">Back-Office</button>
     <button class="tab" data-v="customs">Customs &amp; Excise</button>
@@ -176,6 +192,12 @@
       <div class="ic" style="background:#fff0d6;flex-shrink:0">🔎</div>
       <div style="flex:1"><h3 style="margin:0 0 3px">Smart Audit — turn the VAT verification questionnaire into one click <span class="pill amber">NEW</span></h3>
       <p style="color:var(--muted);margin:0;font-size:12.5px">The paper officers fill by hand is auto-populated from CIPA, Lekgetho Live, banking &amp; customs — then the taxpayer's answers are cross-checked and inconsistencies flagged automatically.</p></div>
+      <button class="btn btn-primary">Open →</button>
+    </div>
+    <div class="card modcard" data-go="capture" style="margin-top:12px;border-left:4px solid var(--orange);display:flex;gap:16px;align-items:center">
+      <div class="ic" style="background:#fff0d6;flex-shrink:0">📸</div>
+      <div style="flex:1"><h3 style="margin:0 0 3px">Smart Capture — photograph a document, the form fills itself <span class="pill amber">NEW</span></h3>
+      <p style="color:var(--muted);margin:0;font-size:12.5px">Snap a receipt, Omang or payslip → fields are read automatically and flow into the official BURS forms (ITW8, ITW7A, ITW10, VAT 002), ready to submit.</p></div>
       <button class="btn btn-primary">Open →</button>
     </div>
     <div class="notes" id="notes-overview"><b>Pitch line:</b> "BURS already collects well — Lekgetho AI is about collecting <i>completely</i>. The 60% VAT leakage and the March-2026 mandate are the wedge; the same engine then lifts service, back-office and customs." Lead with the recovered-VAT number — it pays for the whole programme.</div>
@@ -251,6 +273,48 @@
       <div id="auditDocs" class="grid cols-3" style="gap:8px"></div>
     </div>
     <div class="notes" id="notes-audit"><b>This is the headline for BURS.</b> Switch the dropdown to <b>Naledi Holdings</b> (high risk) → the system flags under-declared turnover, hidden employees and undisclosed imports — with <i>no</i> interview needed. Then switch to <b>Tau Construction</b> → clean, no action. Pitch line: "Your officers stop transcribing forms and start judging exceptions. ~90 minutes of manual work becomes 5 — and the taxpayer can't hide behind what they choose to tell you."</div>
+  </section>
+
+  <!-- ===================== SMART CAPTURE ===================== -->
+  <section class="view" id="capture">
+    <h2 class="title">Smart Capture — photograph documents, the forms fill themselves</h2>
+    <p class="sub">An officer photographs a client's receipt, Omang or payslip. Lekgetho AI reads it and auto-populates the official BURS forms — ITW8, ITW7A, ITW10 and VAT 002 — ready to review and submit. One photo serves every form.</p>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>📷 1 · Capture documents</h3>
+        <label for="capFile" class="dropzone">
+          <div style="font-size:30px">📸</div>
+          <div style="font-weight:700;margin-top:6px">Photograph or upload a document</div>
+          <div style="font-size:11.5px;color:var(--muted)">Receipt · Omang ID · invoice · payslip — JPG / PNG</div>
+        </label>
+        <input type="file" id="capFile" accept="image/*" capture="environment" style="display:none" onchange="onCapFile(event)">
+        <div style="display:flex;align-items:center;gap:8px;margin:10px 0;flex-wrap:wrap">
+          <span style="font-size:12px;color:var(--muted)">or try a sample:</span>
+          <button class="btn btn-ghost2" onclick="loadSample('receipt')">VAT receipt</button>
+          <button class="btn btn-ghost2" onclick="loadSample('omang')">Omang ID</button>
+          <button class="btn btn-ghost2" onclick="loadSample('payslip')">Payslip</button>
+        </div>
+        <div id="capStage"></div>
+        <div id="capEntities"></div>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:12px">
+          <h3 style="margin:0 8px 0 0">📄 2 · Auto-filled form</h3>
+          <button class="formtab active" data-f="ITW8" onclick="selForm('ITW8')">ITW8</button>
+          <button class="formtab" data-f="ITW7A" onclick="selForm('ITW7A')">ITW7A</button>
+          <button class="formtab" data-f="ITW10" onclick="selForm('ITW10')">ITW10</button>
+          <button class="formtab" data-f="VAT002" onclick="selForm('VAT002')">VAT 002</button>
+        </div>
+        <div id="captureForm"></div>
+        <div style="display:flex;gap:8px;margin-top:14px">
+          <button class="btn btn-primary" style="flex:1" onclick="alert('Concept: the validated form is submitted to Lekgetho Live and a copy is filed to the taxpayer record.')">Submit to Lekgetho Live</button>
+          <button class="btn btn-ghost2" onclick="alert('Concept: form exported as a signed PDF.')">Export PDF</button>
+        </div>
+      </div>
+    </div>
+    <p style="color:var(--muted);font-size:11.5px;margin:14px 0 0">🔒 Production extraction engine: a vision AI model (Claude, per Alpha Direct's approved-vendor policy) for high-accuracy structured reading. This demo uses on-device OCR for live uploads and pre-mapped samples — no document data leaves the browser.</p>
+    <div class="notes" id="notes-capture"><b>The "wow" moment.</b> Click <b>Payslip</b> → ITW8 fills itself, then switch to <b>ITW7A</b> and <b>ITW10</b> — the same captured data flows into all of them (monthly ITW7A submissions auto-aggregate into the annual ITW10). Click <b>VAT receipt</b> → switch to <b>VAT 002</b>. For a live audience, upload a real photo to show on-device OCR. Pitch line: "The officer photographs, the system types — minutes of data entry become seconds, and one photo serves four forms."</div>
   </section>
 
   <!-- ===================== TAXPAYER SERVICE ===================== -->
@@ -561,6 +625,110 @@ function renderAudit(){
   document.getElementById('auditDocs').innerHTML=d.docs.map(x=>'<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:'+(x[1]?'#fffaf0':'#fff')+'"><span style="font-size:15px">'+(x[1]?'☑':'☐')+'</span><div><div style="font-weight:600">'+x[0]+'</div>'+(x[2]?'<div style="font-size:10.5px;color:'+(x[1]?'var(--amber)':'var(--muted)')+'">'+x[2]+'</div>':'')+'</div></div>').join('');
 }
 renderAudit();
+
+/* ---------- smart capture (photo -> OCR -> auto-fill BURS forms) ---------- */
+var samples={
+  receipt:{label:'VAT receipt',
+    thumb:['KGALAGADI TRADERS (PTY) LTD','TIN: C0048221   VAT: P00301234','Plot 4412, Broadhurst, Gaborone','-----------------------------','Groceries x12          1,250.00','VAT @ 14%                175.00','TOTAL              P 1,425.00','Date: 11/06/2026   #INV-88421'],
+    fields:{supplierName:'Kgalagadi Traders (Pty) Ltd',supplierTin:'C0048221',vatNo:'P00301234',date:'2026-06-11',net:'1250.00',vat:'175.00',gross:'1425.00'},
+    conf:{supplierName:0.98,supplierTin:0.97,vatNo:0.95,date:0.96,net:0.94,vat:0.94,gross:0.99}},
+  omang:{label:'Omang ID',
+    thumb:['REPUBLIC OF BOTSWANA','OMANG / NATIONAL IDENTITY CARD','Name: TEBOGO K. MODISE','ID No: 045221889','Date of birth: 15/04/1989','Place of birth: GABORONE'],
+    fields:{fullName:'Tebogo K. Modise',omang:'045221889',dob:'1989-04-15',address:'Plot 2241, Gaborone West'},
+    conf:{fullName:0.97,omang:0.99,dob:0.95,address:0.86}},
+  payslip:{label:'payslip',
+    thumb:['NALEDI HOLDINGS (PTY) LTD','Employer TIN: C0099310','Employee: TEBOGO K. MODISE','Employee TIN: I045221889','Pay period: JUNE 2026','Gross emoluments     15,000.00','PAYE deducted         1,325.00','Net pay              13,675.00'],
+    fields:{employer:'Naledi Holdings (Pty) Ltd',employerTin:'C0099310',employeeName:'Tebogo K. Modise',employeeTin:'I045221889',omang:'045221889',month:'June 2026',gross:'15000.00',paye:'1325.00',netpay:'13675.00'},
+    conf:{employer:0.98,employerTin:0.97,employeeName:0.96,employeeTin:0.95,omang:0.99,month:0.97,gross:0.96,paye:0.96,netpay:0.96}}
+};
+var extracted={}, extConf={};
+function mergeExtract(fields,conf){for(var k in fields){extracted[k]=fields[k];extConf[k]=(conf&&conf[k])?conf[k]:0.9;}}
+var capForms={
+  ITW8:{title:'ITW8 — PAYE Tax Deduction Certificate',sub:'Issued by employer to employee; proof of PAYE deducted (tax year 2026/27)',
+    secs:[['Employer details',[['Employer name','employer'],['Employer TIN','employerTin']]],
+          ['Employee details',[['Employee full name','employeeName','fullName'],['Employee TIN','employeeTin'],['Omang / ID number','omang']]],
+          ['Emoluments & tax',[['Gross emoluments (BWP)','gross'],['PAYE deducted (BWP)','paye'],['Net pay (BWP)','netpay']]]]},
+  ITW7A:{title:'ITW7A — Monthly PAYE Remittance Return',sub:'Employer monthly return; due by the 15th of the following month',
+    secs:[['Employer details',[['Employer name','employer'],['Employer TIN','employerTin']]],
+          ['Return period',[['Tax period (month)','month'],['Number of employees','']]],
+          ['Remittance',[['Total gross emoluments (BWP)','gross'],['Total PAYE deducted (BWP)','paye'],['Amount remitted (BWP)','paye']]]]},
+  ITW10:{title:'ITW10 (PAYE) — Annual Withholding Tax Return',sub:'Employer annual reconciliation — auto-aggregated from the 12 monthly ITW7A submissions',
+    secs:[['Employer details',[['Employer name','employer'],['Employer TIN','employerTin']]],
+          ['Tax year (1 Jul – 30 Jun)',[['Tax year','']]],
+          ['Annual totals',[['Total number of employees',''],['Total annual emoluments (BWP)',''],['Total PAYE remitted (BWP)','']]]]},
+  VAT002:{title:'VAT 002 — Value Added Tax Return',sub:'Return for remittance of VAT (Category A / B / C)',
+    secs:[['Registered person',[['Name','supplierName','employer'],['TIN','supplierTin','employerTin'],['VAT registration number','vatNo']]],
+          ['Tax period',[['Period','month']]],
+          ['Output tax',[['Standard-rated sales, excl. VAT (BWP)','net'],['Output VAT @ 14% (BWP)','vat']]],
+          ['Input tax',[['Input VAT claimed (BWP)','']]],
+          ['Net VAT',[['VAT payable / (refundable) (BWP)','vat']]]]}
+};
+var curForm='ITW8';
+function selForm(f){curForm=f;document.querySelectorAll('.formtab').forEach(b=>b.classList.toggle('active',b.dataset.f===f));renderForm();}
+function fieldVal(keys){for(var i=0;i<keys.length;i++){if(keys[i]&&extracted[keys[i]]!=null)return {v:extracted[keys[i]],k:keys[i]};}return {v:'',k:null};}
+function renderForm(){
+  var f=capForms[curForm];
+  var h='<div style="font-weight:800;font-size:14px">'+f.title+'</div><div style="font-size:11.5px;color:var(--muted);margin-bottom:4px">'+f.sub+'</div>';
+  f.secs.forEach(s=>{h+='<div class="fsec">'+s[0]+'</div>';
+    s[1].forEach(fl=>{var keys=fl.slice(1);var r=fieldVal(keys);var filled=r.k!=null;
+      var badge=filled?'<span class="fbadge">📷 '+Math.round(extConf[r.k]*100)+'%</span>':'';
+      h+='<div class="ffield'+(filled?' filled':'')+'"><label>'+fl[0]+badge+'</label><input value="'+(r.v||'').toString().replace(/"/g,'&quot;')+'" placeholder="—"></div>';
+    });
+  });
+  document.getElementById('captureForm').innerHTML=h;
+}
+function renderEntities(){
+  var keys=Object.keys(extracted);if(!keys.length){document.getElementById('capEntities').innerHTML='';return;}
+  var h='<div style="font-size:11px;font-weight:800;color:var(--navy);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.4px">Extracted data ('+keys.length+' fields)</div>';
+  h+=keys.map(k=>'<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f1f4f8;font-size:12.5px"><span style="color:var(--muted)">'+k+'</span><span style="font-weight:600;text-align:right">'+extracted[k]+' <span class="pill '+(extConf[k]>0.92?'green':'amber')+'" style="font-size:9px;padding:2px 7px">'+Math.round(extConf[k]*100)+'%</span></span></div>').join('');
+  document.getElementById('capEntities').innerHTML=h;
+}
+function loadSample(key){
+  var s=samples[key];
+  document.getElementById('capStage').innerHTML='<div class="docthumb">'+s.thumb.join('<br>')+'</div><div style="margin:8px 0"><div class="scanline"></div></div><div style="font-size:12px;color:var(--muted)">🔍 Reading '+s.label+'…</div>';
+  setTimeout(function(){
+    mergeExtract(s.fields,s.conf);
+    document.getElementById('capStage').innerHTML='<div class="docthumb">'+s.thumb.join('<br>')+'</div><div style="font-size:12px;color:var(--green);font-weight:700;margin-top:8px">✓ Extracted '+Object.keys(s.fields).length+' fields from '+s.label+'</div>';
+    renderEntities();renderForm();
+  },1200);
+}
+function onCapFile(e){
+  var file=e.target.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    document.getElementById('capStage').innerHTML='<img src="'+ev.target.result+'" alt="captured document" style="max-width:100%;max-height:200px;border:1px solid var(--line);border-radius:8px"><div style="margin:8px 0"><div class="scanline"></div></div><div id="ocrMsg" style="font-size:12px;color:var(--muted)">🔍 Live on-device OCR reading document…</div>';
+    runOCR(ev.target.result);
+  };
+  reader.readAsDataURL(file);
+}
+function runOCR(dataUrl){
+  function go(){
+    Tesseract.recognize(dataUrl,'eng').then(function(res){
+      var text=(res.data&&res.data.text)||'';
+      var msg=document.getElementById('ocrMsg');if(!msg)return;
+      msg.innerHTML='✓ Live OCR complete. <a href="#" onclick="var r=document.getElementById(\'ocrRaw\');r.style.display=r.style.display===\'block\'?\'none\':\'block\';return false">view raw text</a><pre id="ocrRaw" style="display:none;white-space:pre-wrap;font-size:10px;background:#f4f6f9;padding:8px;border-radius:6px;margin-top:6px">'+text.replace(/</g,'&lt;')+'</pre>';
+      parseOCR(text);
+    }).catch(function(){var m=document.getElementById('ocrMsg');if(m)m.innerHTML='⚠ OCR could not read this image — try a clearer photo, or use a sample.';});
+  }
+  if(window.Tesseract){go();return;}
+  var sc=document.createElement('script');
+  sc.src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+  sc.onload=go;
+  sc.onerror=function(){var m=document.getElementById('ocrMsg');if(m)m.innerHTML='⚠ Live OCR needs an internet connection to load. Use a sample document to see the full flow.';};
+  document.head.appendChild(sc);
+}
+function parseOCR(text){
+  var f={},c={};
+  var tin=text.match(/\b[CI]\d{7,9}\b/);if(tin){f.supplierTin=tin[0];c.supplierTin=0.8;}
+  var vat=text.match(/\bP\d{6,8}\b/);if(vat){f.vatNo=vat[0];c.vatNo=0.75;}
+  var omang=text.match(/\b\d{9}\b/);if(omang){f.omang=omang[0];c.omang=0.8;}
+  var date=text.match(/\b\d{1,2}[\/\-.]\d{1,2}[\/\-.]\d{2,4}\b/);if(date){f.date=date[0];c.date=0.75;}
+  var amts=(text.match(/\d{1,3}(?:[,\s]\d{3})*\.\d{2}/g)||[]).map(x=>Number(x.replace(/[,\s]/g,'')));
+  if(amts.length){amts.sort((a,b)=>b-a);f.gross=amts[0].toFixed(2);c.gross=0.7;if(amts.length>1){f.vat=amts[amts.length-1].toFixed(2);c.vat=0.6;}}
+  if(Object.keys(f).length){mergeExtract(f,c);renderEntities();renderForm();}
+  else{var m=document.getElementById('ocrMsg');if(m)m.innerHTML+='<div style="font-size:11px;color:var(--amber);margin-top:4px">No structured fields confidently parsed. Production uses a vision AI model for far higher accuracy.</div>';}
+}
+renderForm();
 </script>
 </body>
 </html>

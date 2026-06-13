@@ -5,9 +5,10 @@ A clickable concept demonstration of AI-assisted automation across the daily rev
 **▶ Live demo:** https://prathap-alpha.github.io/lekgetho-ai-concept/
 
 ## What it shows
-Six modules, all running on **synthetic data**:
+Seven modules, all running on **synthetic data**:
 
 - **Smart Audit** — auto-fills BURS's VAT Compliance Verification questionnaire from connected data sources (CIPA, Lekgetho Live, banking, customs), then cross-checks the taxpayer's declared answers and flags inconsistencies automatically, with a risk-scored verdict and an auto-selected document-request list.
+- **Smart Capture** — photograph a receipt, Omang or payslip; the data is read automatically (on-device OCR for live uploads) and flows into the official BURS forms — ITW8, ITW7A, ITW10 and VAT 002 — each field tagged with a confidence score, ready to review and submit.
 - **e-Invoicing (CTC)** — real-time validation and clearance of VAT invoices, ahead of the March 2026 mandate.
 - **Taxpayer Service** — a 24/7 bilingual (English / Setswana) AI assistant over e-Tax and Lekgetho Live.
 - **Back-Office** — auto-processing of routine returns plus AI audit-case selection by risk.
