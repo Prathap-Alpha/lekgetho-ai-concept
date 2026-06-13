@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lekgetho AI — BURS Smart Revenue Suite (Concept)</title>
+<style>
+  :root{
+    --navy:#0D1B2A; --navy2:#15263b; --navy3:#1e3450;
+    --orange:#F4A623; --orange-d:#d98e10;
+    --bg:#f4f6f9; --card:#ffffff; --line:#e4e9f0;
+    --ink:#1f2d3d; --muted:#6b7a8d;
+    --green:#27ae60; --red:#e74c3c; --amber:#f39c12; --blue:#75AADB;
+    --shadow:0 1px 3px rgba(13,27,42,.08),0 8px 24px rgba(13,27,42,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:'Segoe UI',Roboto,system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5}
+  /* ---------- Header ---------- */
+  header{background:linear-gradient(120deg,var(--navy),var(--navy3));color:#fff;border-bottom:3px solid var(--orange)}
+  .topbar{display:flex;align-items:center;gap:16px;padding:14px 22px;max-width:1180px;margin:0 auto}
+  .logo{display:flex;align-items:center;gap:12px}
+  .mark{width:44px;height:44px;border-radius:11px;background:var(--orange);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--navy);font-size:20px;box-shadow:0 4px 12px rgba(244,166,35,.35)}
+  .brand h1{font-size:18px;margin:0;letter-spacing:.3px}
+  .brand p{margin:0;font-size:11.5px;color:#aebfd1;letter-spacing:.4px;text-transform:uppercase}
+  .topbar .spacer{flex:1}
+  .badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:6px 12px;border-radius:20px;font-size:11.5px;color:#dbe6f2}
+  .btn{cursor:pointer;border:none;font-family:inherit;font-size:13px;border-radius:8px;padding:9px 14px;font-weight:600;transition:.15s}
+  .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2)}
+  .btn-ghost:hover{background:rgba(255,255,255,.22)}
+  .btn-primary{background:var(--orange);color:var(--navy)}
+  .btn-primary:hover{background:var(--orange-d)}
+  /* ---------- Nav ---------- */
+  nav{background:var(--navy2);position:sticky;top:0;z-index:20}
+  .navinner{max-width:1180px;margin:0 auto;display:flex;gap:2px;padding:0 14px;overflow-x:auto}
+  .tab{color:#9fb1c6;background:none;border:none;padding:13px 16px;font-size:13.5px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;font-family:inherit}
+  .tab:hover{color:#fff}
+  .tab.active{color:#fff;border-bottom-color:var(--orange)}
+  /* ---------- Layout ---------- */
+  main{max-width:1180px;margin:0 auto;padding:24px 22px 60px}
+  .view{display:none;animation:fade .25s ease}
+  .view.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h2.title{font-size:21px;margin:0 0 3px}
+  .sub{color:var(--muted);margin:0 0 18px;font-size:13px}
+  .grid{display:grid;gap:16px}
+  .cols-4{grid-template-columns:repeat(4,1fr)}
+  .cols-3{grid-template-columns:repeat(3,1fr)}
+  .cols-2{grid-template-columns:1.15fr .85fr}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 12px;font-size:14.5px;display:flex;align-items:center;gap:8px}
+  .kpi .label{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+  .kpi .val{font-size:27px;font-weight:800;color:var(--navy);margin-top:6px}
+  .kpi .delta{font-size:12px;margin-top:4px;font-weight:600}
+  .up{color:var(--green)} .down{color:var(--red)}
+  .pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700}
+  .pill.green{background:#e7f7ee;color:#1d8a4e}
+  .pill.red{background:#fdecea;color:#c0392b}
+  .pill.amber{background:#fff4e2;color:#b9770b}
+  .pill.blue{background:#eaf3fb;color:#2e6da4}
+  .hero{background:linear-gradient(120deg,var(--navy),var(--navy3));color:#fff;border-radius:16px;padding:26px 28px;margin-bottom:18px;position:relative;overflow:hidden}
+  .hero:after{content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(244,166,35,.25),transparent 70%)}
+  .hero h2{margin:0 0 6px;font-size:23px}
+  .hero p{margin:0;color:#c6d4e3;max-width:620px}
+  .progressbar{height:14px;background:#e9eef5;border-radius:10px;overflow:hidden}
+  .progressbar > span{display:block;height:100%;background:linear-gradient(90deg,var(--orange),var(--orange-d))}
+  .modcard{cursor:pointer;transition:.18s}
+  .modcard:hover{transform:translateY(-3px);border-color:var(--orange)}
+  .ic{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;background:#eef3f9}
+  /* forms */
+  label.f{display:block;font-size:12px;font-weight:600;color:var(--muted);margin:12px 0 4px}
+  input.f,select.f{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;font-family:inherit;background:#fbfcfe}
+  input.f:focus,select.f:focus{outline:none;border-color:var(--orange)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.3px;padding:8px 10px;border-bottom:1px solid var(--line)}
+  td{padding:9px 10px;border-bottom:1px solid #f1f4f8}
+  tr:last-child td{border-bottom:none}
+  .feed{max-height:330px;overflow:auto}
+  .feeditem{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f1f4f8;font-size:13px;animation:fade .3s}
+  .qr{display:grid;grid-template-columns:repeat(9,1fr);gap:2px;width:108px;height:108px;background:#fff;padding:6px;border:1px solid var(--line);border-radius:8px}
+  .qr i{background:var(--navy);border-radius:1px}
+  .qr i.off{background:#fff}
+  .result{border-radius:12px;padding:16px;margin-top:14px;border:1px solid}
+  .result.ok{background:#f0fbf4;border-color:#bfe8cf}
+  .result.warn{background:#fff7ec;border-color:#fadfaf}
+  .result.bad{background:#fdf0ee;border-color:#f6c6bf}
+  .check{display:flex;align-items:center;gap:8px;font-size:13px;margin:5px 0}
+  .check .dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;flex-shrink:0}
+  /* chat */
+  .chat{height:360px;display:flex;flex-direction:column}
+  .msgs{flex:1;overflow:auto;padding:6px 4px;display:flex;flex-direction:column;gap:10px}
+  .msg{max-width:80%;padding:10px 13px;border-radius:13px;font-size:13.5px;line-height:1.45}
+  .msg.bot{background:#eef3f9;align-self:flex-start;border-bottom-left-radius:3px}
+  .msg.user{background:var(--navy);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+  .chip{background:#fff;border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-size:12.5px;cursor:pointer;transition:.15s}
+  .chip:hover{border-color:var(--orange);background:#fffaf0}
+  .chatinput{display:flex;gap:8px;margin-top:8px}
+  .bars{display:flex;align-items:flex-end;gap:10px;height:130px;padding-top:10px}
+  .bar{flex:1;background:linear-gradient(180deg,var(--orange),var(--orange-d));border-radius:6px 6px 0 0;position:relative}
+  .bar span{position:absolute;bottom:-20px;left:0;right:0;text-align:center;font-size:11px;color:var(--muted)}
+  .trace{display:flex;align-items:center;gap:6px;margin:8px 0}
+  .node{flex:1;text-align:center;font-size:11px;color:var(--muted)}
+  .node .b{width:14px;height:14px;border-radius:50%;background:#dfe6ee;margin:0 auto 4px}
+  .node.done .b{background:var(--green)}
+  .node.cur .b{background:var(--orange);box-shadow:0 0 0 4px rgba(244,166,35,.25)}
+  .conn{height:3px;flex:1;background:#dfe6ee;border-radius:3px}
+  .conn.done{background:var(--green)}
+  .notes{background:#fffaf0;border:1px dashed var(--orange);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:12.5px;display:none}
+  .notes.show{display:block}
+  .notes b{color:var(--orange-d)}
+  footer{max-width:1180px;margin:0 auto;padding:18px 22px 40px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line)}
+  .flag{display:inline-flex;height:4px;width:60px;border-radius:3px;overflow:hidden;vertical-align:middle;margin-left:8px}
+  .flag i{flex:1}.flag .lb{background:var(--blue)}.flag .bk{background:#000}.flag .wt{background:#fff}
+  @media(max-width:880px){.cols-4{grid-template-columns:repeat(2,1fr)}.cols-3{grid-template-columns:1fr}.cols-2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="topbar">
+    <div class="logo">
+      <div class="mark">L</div>
+      <div class="brand">
+        <h1>Lekgetho&nbsp;AI <span class="flag"><i class="lb"></i><i class="bk"></i><i class="wt"></i></span></h1>
+        <p>BURS Smart Revenue Suite</p>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <span class="badge" id="clock">—</span>
+    <span class="badge">Concept • by Alpha Direct</span>
+    <button class="btn btn-ghost" onclick="toggleNotes()">💡 Presenter notes</button>
+  </div>
+</header>
+<nav>
+  <div class="navinner">
+    <button class="tab active" data-v="overview">Overview</button>
+    <button class="tab" data-v="einvoice">e-Invoicing (CTC)</button>
+    <button class="tab" data-v="audit">Smart Audit</button>
+    <button class="tab" data-v="service">Taxpayer Service</button>
+    <button class="tab" data-v="backoffice">Back-Office</button>
+    <button class="tab" data-v="customs">Customs &amp; Excise</button>
+  </div>
+</nav>
+
+<main>
+  <!-- ===================== OVERVIEW ===================== -->
+  <section class="view active" id="overview">
+    <div class="hero">
+      <h2>Helping BURS collect smarter — not harder.</h2>
+      <p>A single AI-assisted platform across the four pillars of daily revenue work: real-time VAT clearance, taxpayer self-service, internal processing &amp; audit, and customs. Built to close the VAT gap and hit the P120&nbsp;billion 2024–2029 target.</p>
+    </div>
+
+    <div class="grid cols-4" style="margin-bottom:16px">
+      <div class="card kpi"><div class="label">VAT gap recovered (YTD)</div><div class="val" data-count="473200000" data-prefix="P" data-money="1">P0</div><div class="delta up">▲ 18.4% vs prior yr</div></div>
+      <div class="card kpi"><div class="label">Invoices cleared today</div><div class="val" data-count="48217">0</div><div class="delta up">▲ real-time CTC</div></div>
+      <div class="card kpi"><div class="label">Returns auto-processed</div><div class="val" data-count="91" data-suffix="%">0</div><div class="delta up">▲ from 34% manual</div></div>
+      <div class="card kpi"><div class="label">Avg query resolution</div><div class="val" data-count="40" data-suffix="s">0</div><div class="delta down">▼ from 3.5 days</div></div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <h3>Strategic target — P120bn mobilised by March 2029</h3>
+      <div class="progressbar"><span style="width:39%"></span></div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:12.5px;color:var(--muted)">
+        <span><b style="color:var(--navy)">P47.3bn</b> mobilised</span><span>39% of plan</span><span>P120bn goal</span>
+      </div>
+    </div>
+
+    <div class="grid cols-4">
+      <div class="card modcard" data-go="einvoice"><div class="ic">🧾</div><h3 style="margin-top:12px">e-Invoicing (CTC)</h3><p style="color:var(--muted);margin:0;font-size:12.5px">Real-time clearance of every VAT invoice. Directly attacks the ~60% VAT leakage.</p></div>
+      <div class="card modcard" data-go="service"><div class="ic">💬</div><h3 style="margin-top:12px">Taxpayer Service</h3><p style="color:var(--muted);margin:0;font-size:12.5px">Bilingual AI assistant over e-Tax &amp; Lekgetho Live. 24/7 self-service.</p></div>
+      <div class="card modcard" data-go="backoffice"><div class="ic">📊</div><h3 style="margin-top:12px">Back-Office</h3><p style="color:var(--muted);margin:0;font-size:12.5px">Auto-processing of returns + AI audit case selection by risk.</p></div>
+      <div class="card modcard" data-go="customs"><div class="ic">🚛</div><h3 style="margin-top:12px">Customs &amp; Excise</h3><p style="color:var(--muted);margin:0;font-size:12.5px">e-Clearance, track-and-trace for excisables, transit monitoring.</p></div>
+    </div>
+    <div class="card modcard" data-go="audit" style="margin-top:16px;border-left:4px solid var(--orange);display:flex;gap:16px;align-items:center">
+      <div class="ic" style="background:#fff0d6;flex-shrink:0">🔎</div>
+      <div style="flex:1"><h3 style="margin:0 0 3px">Smart Audit — turn the VAT verification questionnaire into one click <span class="pill amber">NEW</span></h3>
+      <p style="color:var(--muted);margin:0;font-size:12.5px">The paper officers fill by hand is auto-populated from CIPA, Lekgetho Live, banking &amp; customs — then the taxpayer's answers are cross-checked and inconsistencies flagged automatically.</p></div>
+      <button class="btn btn-primary">Open →</button>
+    </div>
+    <div class="notes" id="notes-overview"><b>Pitch line:</b> "BURS already collects well — Lekgetho AI is about collecting <i>completely</i>. The 60% VAT leakage and the March-2026 mandate are the wedge; the same engine then lifts service, back-office and customs." Lead with the recovered-VAT number — it pays for the whole programme.</div>
+  </section>
+
+  <!-- ===================== E-INVOICING ===================== -->
+  <section class="view" id="einvoice">
+    <h2 class="title">e-Invoicing — Continuous Transaction Control</h2>
+    <p class="sub">Every VAT invoice is validated and cleared by BURS in real time before it reaches the buyer — the model going mandatory in March 2026.</p>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>🧾 Submit invoice for clearance</h3>
+        <div class="row2">
+          <div><label class="f">Supplier TIN</label><input class="f" id="supTin" value="C0048221"></div>
+          <div><label class="f">Buyer TIN</label><input class="f" id="buyTin" value="C0099310"></div>
+        </div>
+        <label class="f">Description</label><input class="f" id="desc" value="Motor vehicle parts — 4 units">
+        <div class="row2">
+          <div><label class="f">Net amount (BWP)</label><input class="f" id="net" value="42500" oninput="recalcVat()"></div>
+          <div><label class="f">VAT @ 14%</label><input class="f" id="vat" value="5950" readonly></div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="validateInvoice()">⚡ Validate &amp; Clear</button>
+        <div id="invResult"></div>
+      </div>
+      <div class="card">
+        <h3>🔴 Live clearance feed <span class="pill green" style="margin-left:auto" id="clearedToday">0 cleared today</span></h3>
+        <div class="feed" id="feed"></div>
+      </div>
+    </div>
+    <div class="grid cols-3" style="margin-top:16px">
+      <div class="card kpi"><div class="label">Real-time clearance rate</div><div class="val" style="font-size:22px">2.1s avg</div></div>
+      <div class="card kpi"><div class="label">Flagged for review (today)</div><div class="val" style="font-size:22px;color:var(--amber)">312</div></div>
+      <div class="card kpi"><div class="label">Est. VAT leakage blocked</div><div class="val" style="font-size:22px;color:var(--green)">P1.84m</div></div>
+    </div>
+    <div class="notes" id="notes-einvoice"><b>Demo move:</b> submit the pre-filled invoice (clears green), then change Supplier TIN to <b>X999</b> and resubmit — watch it flag "Unverified TIN" + raise the risk score. That one interaction sells the fraud-detection story. <b>Note:</b> TIN format = C + 7 digits (companies / CIPA) or I + 9 digits (individuals / Omang).</div>
+  </section>
+
+  <!-- ===================== SMART AUDIT ===================== -->
+  <section class="view" id="audit">
+    <h2 class="title">Smart Audit — AI VAT Compliance Verification</h2>
+    <p class="sub">BURS officers fill this questionnaire by hand during interviews — mostly with data that already exists. Lekgetho AI auto-fills it from connected sources, then cross-checks the taxpayer's answers and flags inconsistencies automatically.</p>
+
+    <div class="card" style="margin-bottom:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <div><label class="f" style="margin:0">Taxpayer under review</label>
+        <select class="f" id="auditTp" style="min-width:260px" onchange="renderAudit()">
+          <option value="0">Naledi Holdings (Pty) Ltd — C0099310</option>
+          <option value="1">Phokoje Retail (Pty) Ltd — C0071204</option>
+          <option value="2">Tau Construction (Pty) Ltd — C0055019</option>
+        </select>
+      </div>
+      <div style="flex:1"></div>
+      <div style="font-size:11.5px;color:var(--muted)">Connected sources:</div>
+      <span class="pill blue">CIPA</span><span class="pill amber">Lekgetho Live</span><span class="pill green">Bank feed</span><span class="pill" style="background:#fff0d6;color:#b9770b">e-Invoicing</span><span class="pill blue">Customs</span>
+    </div>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>📄 Questionnaire — auto-filled <span class="pill green" style="margin-left:auto">~92% pre-populated</span></h3>
+        <div id="auditForm"></div>
+        <p style="color:var(--muted);font-size:11.5px;margin:12px 0 0">Each field tagged with its data source. Only items marked <span class="pill" style="background:#eef1f4;color:#6b7a8d">Interview</span> need the officer.</p>
+      </div>
+      <div>
+        <div class="card" id="auditVerdict" style="margin-bottom:16px"></div>
+        <div class="card">
+          <h3>🔍 Consistency checks — declared vs. system</h3>
+          <div id="auditChecks"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3>📎 Section 10 — documents to request (auto-selected from the gaps)</h3>
+      <div id="auditDocs" class="grid cols-3" style="gap:8px"></div>
+    </div>
+    <div class="notes" id="notes-audit"><b>This is the headline for BURS.</b> Switch the dropdown to <b>Naledi Holdings</b> (high risk) → the system flags under-declared turnover, hidden employees and undisclosed imports — with <i>no</i> interview needed. Then switch to <b>Tau Construction</b> → clean, no action. Pitch line: "Your officers stop transcribing forms and start judging exceptions. ~90 minutes of manual work becomes 5 — and the taxpayer can't hide behind what they choose to tell you."</div>
+  </section>
+
+  <!-- ===================== TAXPAYER SERVICE ===================== -->
+  <section class="view" id="service">
+    <h2 class="title">Taxpayer Service — AI Assistant</h2>
+    <p class="sub">A 24/7 bilingual (English / Setswana) assistant over e-Tax and Lekgetho Live — deflecting routine queries from the contact centre.</p>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>💬 Tlhokomelo Assistant</h3>
+        <div class="chat">
+          <div class="msgs" id="msgs"></div>
+          <div class="chips" id="chips"></div>
+          <div class="chatinput">
+            <input class="f" id="chatIn" placeholder="Ask anything… e.g. When is my VAT due?" onkeydown="if(event.key==='Enter')sendChat()">
+            <button class="btn btn-primary" onclick="sendChat()">Send</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card kpi" style="margin-bottom:16px"><div class="label">Queries auto-resolved (this month)</div><div class="val" data-count="12480">0</div><div class="delta up">78% deflection rate</div></div>
+        <div class="card kpi" style="margin-bottom:16px"><div class="label">Contact-centre load</div><div class="val" style="font-size:22px;color:var(--green)">▼ 61%</div></div>
+        <div class="card"><h3>Top intents handled</h3>
+          <div style="font-size:13px;color:var(--muted);line-height:2">
+            🥇 VAT return due dates<br>🥈 TIN registration steps<br>🥉 PAYE calculation<br>4️⃣ Payment / banking details<br>5️⃣ Refund status</div>
+        </div>
+      </div>
+    </div>
+    <div class="notes" id="notes-service"><b>Pitch line:</b> "Every query the bot answers is a call your officers don't take." Try the Setswana chip — bilingual support is a differentiator for citizen trust. All answers here are illustrative, drawn from public BURS guidance.</div>
+  </section>
+
+  <!-- ===================== BACK OFFICE ===================== -->
+  <section class="view" id="backoffice">
+    <h2 class="title">Internal Back-Office</h2>
+    <p class="sub">Auto-processing of routine returns, and AI-ranked audit case selection so officers chase the highest-risk taxpayers first.</p>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>📥 Returns processing queue</h3>
+        <table><thead><tr><th>Taxpayer (synthetic)</th><th>Type</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Kgalagadi Traders (Pty)</td><td>VAT</td><td><span class="pill green">Auto-processed</span></td></tr>
+          <tr><td>Thebe Logistics</td><td>PAYE</td><td><span class="pill green">Auto-processed</span></td></tr>
+          <tr><td>Naledi Holdings</td><td>Corp Tax</td><td><span class="pill amber">Needs review</span></td></tr>
+          <tr><td>Phokoje Retail</td><td>VAT</td><td><span class="pill green">Auto-processed</span></td></tr>
+          <tr><td>Mokoro Mining Svc</td><td>Corp Tax</td><td><span class="pill amber">Needs review</span></td></tr>
+          <tr><td>Tau Construction</td><td>PAYE</td><td><span class="pill green">Auto-processed</span></td></tr>
+        </tbody></table>
+        <p style="color:var(--muted);font-size:12px;margin:12px 0 0">91% cleared automatically • 9% routed to officers</p>
+      </div>
+      <div class="card">
+        <h3>🎯 AI audit-case selection</h3>
+        <table><thead><tr><th>Taxpayer</th><th>Risk</th><th>Flag</th></tr></thead>
+        <tbody>
+          <tr><td>Naledi Holdings</td><td><span class="pill red">94</span></td><td>VAT/turnover mismatch</td></tr>
+          <tr><td>Mokoro Mining Svc</td><td><span class="pill red">88</span></td><td>Dormant → sudden spike</td></tr>
+          <tr><td>Setlhare Pharma</td><td><span class="pill amber">71</span></td><td>Round-number invoices</td></tr>
+          <tr><td>Kalahari Imports</td><td><span class="pill amber">66</span></td><td>Refund pattern anomaly</td></tr>
+          <tr><td>Bonno Wholesale</td><td><span class="pill blue">42</span></td><td>Late-filing history</td></tr>
+        </tbody></table>
+        <button class="btn btn-primary" style="width:100%;margin-top:14px" onclick="alert('Concept: an audit case file would be auto-generated with the taxpayer\'s 3-yr filing history, anomaly evidence and a suggested assessment.')">Generate audit case →</button>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>📈 Monthly collections (BWP bn)</h3>
+      <div class="bars">
+        <div class="bar" style="height:55%"><span>Jan</span></div>
+        <div class="bar" style="height:62%"><span>Feb</span></div>
+        <div class="bar" style="height:58%"><span>Mar</span></div>
+        <div class="bar" style="height:71%"><span>Apr</span></div>
+        <div class="bar" style="height:80%"><span>May</span></div>
+        <div class="bar" style="height:92%"><span>Jun</span></div>
+      </div>
+    </div>
+    <div class="notes" id="notes-backoffice"><b>Pitch line:</b> "Your officers stop sifting and start striking — every audit they open is already the highest-yield one available." The risk model turns scarce audit capacity into recovered revenue.</div>
+  </section>
+
+  <!-- ===================== CUSTOMS ===================== -->
+  <section class="view" id="customs">
+    <h2 class="title">Customs &amp; Excise</h2>
+    <p class="sub">Faster e-clearance, track-and-trace for excisable goods, and live transit monitoring across border posts.</p>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>📦 e-Clearance board</h3>
+        <table><thead><tr><th>Declaration</th><th>Goods</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>DC-208841</td><td>Electronics</td><td><span class="pill green">Cleared</span></td></tr>
+          <tr><td>DC-208842</td><td>Alcohol (excise)</td><td><span class="pill amber">Inspection</span></td></tr>
+          <tr><td>DC-208843</td><td>Vehicle parts</td><td><span class="pill green">Cleared</span></td></tr>
+          <tr><td>DC-208844</td><td>Tobacco (excise)</td><td><span class="pill red">Hold — docs</span></td></tr>
+          <tr><td>DC-208845</td><td>Textiles</td><td><span class="pill green">Cleared</span></td></tr>
+        </tbody></table>
+      </div>
+      <div class="card">
+        <h3>🔗 Track &amp; trace — excisable consignment EX-7741 (alcohol)</h3>
+        <div class="trace">
+          <div class="node done"><div class="b"></div>Factory</div><div class="conn done"></div>
+          <div class="node done"><div class="b"></div>Bonded WH</div><div class="conn done"></div>
+          <div class="node cur"><div class="b"></div>In transit</div><div class="conn"></div>
+          <div class="node"><div class="b"></div>Retail</div>
+        </div>
+        <p style="font-size:12.5px;color:var(--muted)">Tamper seal: <span class="pill green">Intact</span> &nbsp; Excise stamp: <span class="pill green">Verified</span> &nbsp; ETA Gaborone: 4h</p>
+        <h3 style="margin-top:18px">🛂 Transit monitoring — border posts</h3>
+        <table><thead><tr><th>Post</th><th>In transit</th><th>Alerts</th></tr></thead>
+        <tbody>
+          <tr><td>Tlokweng</td><td>34</td><td><span class="pill green">0</span></td></tr>
+          <tr><td>Ramatlabama</td><td>61</td><td><span class="pill amber">2</span></td></tr>
+          <tr><td>Kazungula</td><td>47</td><td><span class="pill green">0</span></td></tr>
+          <tr><td>Pioneer Gate</td><td>52</td><td><span class="pill red">1 diversion</span></td></tr>
+        </tbody></table>
+      </div>
+    </div>
+    <div class="notes" id="notes-customs"><b>Pitch line:</b> "Track-and-trace plus transit monitoring is how you stop excise dumping and diversion — the goods tell on themselves." Ties directly to BURS's stated track-and-trace and transit-monitoring plans.</div>
+  </section>
+</main>
+
+<footer>
+  <b>Concept demonstration</b> prepared by Alpha Direct Insurance for discussion purposes only.
+  Not affiliated with, endorsed by, or an official system of the Botswana Unified Revenue Service.
+  All taxpayers, TINs, figures and transactions shown are <b>synthetic</b>. Official BURS branding to be applied only with BURS authorisation.
+</footer>
+
+<script>
+/* ---------- clock ---------- */
+function tick(){var d=new Date();document.getElementById('clock').textContent=d.toLocaleString('en-GB',{weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});}
+tick();setInterval(tick,30000);
+
+/* ---------- tabs ---------- */
+function show(v){
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active',s.id===v));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.v===v));
+  document.querySelectorAll('.notes').forEach(n=>n.classList.remove('show'));
+  if(notesOn){var n=document.getElementById('notes-'+v);if(n)n.classList.add('show');}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>show(t.dataset.v));
+document.querySelectorAll('.modcard').forEach(c=>c.onclick=()=>show(c.dataset.go));
+
+/* ---------- presenter notes ---------- */
+var notesOn=false;
+function toggleNotes(){notesOn=!notesOn;var cur=document.querySelector('.tab.active').dataset.v;document.querySelectorAll('.notes').forEach(n=>n.classList.remove('show'));if(notesOn){var n=document.getElementById('notes-'+cur);if(n)n.classList.add('show');}}
+
+/* ---------- count-up KPIs ---------- */
+function fmt(n,money){if(money){if(n>=1e6)return 'P'+(n/1e6).toFixed(1)+'m';return 'P'+n.toLocaleString();}return n.toLocaleString();}
+document.querySelectorAll('[data-count]').forEach(el=>{
+  var target=+el.dataset.count, money=el.dataset.money, pre=el.dataset.prefix||'', suf=el.dataset.suffix||'', t0=null, dur=1100;
+  var finalTxt = money?fmt(target,1):(pre+target.toLocaleString()+suf);
+  function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);var val=Math.floor(target*(1-Math.pow(1-p,3)));
+    el.textContent= money?fmt(val,1):(pre+val.toLocaleString()+suf); if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+  setTimeout(function(){el.textContent=finalTxt;},1250); // guarantee final value if rAF is throttled
+});
+
+/* ---------- e-invoice ---------- */
+var validTins=['C0048221','C0099310','I045221889','C0071204','I031889772','C0055019'];
+var seen=new Set(); var clearedCount=48217;
+function tinOk(t){return /^C\d{7}$/.test(t)||/^I\d{9}$/.test(t);}
+function recalcVat(){var n=parseFloat(document.getElementById('net').value)||0;document.getElementById('vat').value=Math.round(n*0.14);}
+function qr(seed){var h=0;for(var i=0;i<seed.length;i++)h=(h*31+seed.charCodeAt(i))&0xffffffff;var out='';for(var c=0;c<81;c++){h=(h*1103515245+12345)&0x7fffffff;out+='<i class="'+((h>>7&1)?'':'off')+'"></i>';}return '<div class="qr">'+out+'</div>';}
+function validateInvoice(){
+  var sup=document.getElementById('supTin').value.trim().toUpperCase();
+  var buy=document.getElementById('buyTin').value.trim().toUpperCase();
+  var net=parseFloat(document.getElementById('net').value)||0;
+  var checks=[],risk=0;
+  // supplier
+  var supVer=tinOk(sup)&&validTins.includes(sup);
+  if(supVer)checks.push([1,'Supplier TIN verified ('+sup+')']);
+  else if(tinOk(sup)){checks.push([0,'Supplier TIN format valid but not in registry']);risk+=35;}
+  else {checks.push([0,'Invalid supplier TIN format']);risk+=45;}
+  // buyer
+  if(tinOk(buy))checks.push([1,'Buyer TIN format valid']);
+  else {checks.push([0,'Buyer TIN missing / invalid']);risk+=10;}
+  // vat math (always auto so passes)
+  checks.push([1,'VAT computation correct @ 14% (P'+Math.round(net*0.14).toLocaleString()+')']);
+  // duplicate
+  var key=sup+'|'+buy+'|'+net;
+  if(seen.has(key)){checks.push([0,'Possible duplicate of a cleared invoice']);risk+=50;}
+  else checks.push([1,'No duplicate detected']);
+  // round number
+  if(net>=50000&&net%1000===0){checks.push([0,'Round-number high-value invoice (pattern flag)']);risk+=15;}
+  else checks.push([1,'Amount pattern normal']);
+  seen.add(key);
+
+  var cls,title,sub;
+  if(risk>=60){cls='bad';title='❌ REJECTED — referred for review';sub='Risk score '+risk+'/100. Invoice held; supplier notified.';}
+  else if(risk>=30){cls='warn';title='⚠️ CLEARED WITH FLAG';sub='Risk score '+risk+'/100. Cleared but queued for audit sampling.';}
+  else {cls='ok';title='✅ CLEARED';sub='Risk score '+risk+'/100. Real-time clearance issued.';clearedCount++;}
+
+  var ref='BW-CTC-'+(Math.floor(Math.random()*900000)+100000);
+  var rows=checks.map(c=>'<div class="check"><span class="dot" style="background:'+(c[0]?'var(--green)':'var(--red)')+'">'+(c[0]?'✓':'!')+'</span>'+c[1]+'</div>').join('');
+  var qrhtml = cls!=='bad' ? '<div style="display:flex;gap:14px;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,0,0,.07)">'+qr(ref)+'<div><div style="font-size:11px;color:var(--muted)">CLEARANCE REFERENCE</div><div style="font-weight:800;font-size:16px;color:var(--navy)">'+ref+'</div><div style="font-size:11.5px;color:var(--muted);margin-top:4px">Fiscalised • cryptographically signed</div></div></div>' : '';
+  document.getElementById('invResult').innerHTML='<div class="result '+cls+'"><div style="font-weight:800;font-size:15px;margin-bottom:8px">'+title+'</div><div style="color:var(--muted);font-size:12.5px;margin-bottom:10px">'+sub+'</div>'+rows+qrhtml+'</div>';
+  document.getElementById('clearedToday').textContent=clearedCount.toLocaleString()+' cleared today';
+}
+
+/* ---------- live feed ---------- */
+var firms=['Kgalagadi Traders','Thebe Logistics','Phokoje Retail','Tau Construction','Naledi Holdings','Setlhare Pharma','Kalahari Imports','Bonno Wholesale','Mokoro Mining','Diphetogo Foods'];
+function pushFeed(){
+  var s=firms[Math.floor(Math.random()*firms.length)];
+  var amt=(Math.floor(Math.random()*180)+5)*1000;
+  var roll=Math.random();var st,cls;
+  if(roll>0.93){st='Held';cls='red';}else if(roll>0.82){st='Flagged';cls='amber';}else{st='Cleared';cls='green';}
+  var feed=document.getElementById('feed');if(!feed)return;
+  var ref='BW-CTC-'+(Math.floor(Math.random()*900000)+100000);
+  var el=document.createElement('div');el.className='feeditem';
+  el.innerHTML='<span class="pill '+cls+'">'+st+'</span><div style="flex:1"><div style="font-weight:600">'+s+'</div><div style="font-size:11px;color:var(--muted)">'+ref+' • VAT P'+Math.round(amt*0.14).toLocaleString()+'</div></div><div style="font-weight:700;color:var(--navy)">P'+amt.toLocaleString()+'</div>';
+  feed.prepend(el);while(feed.children.length>9)feed.removeChild(feed.lastChild);
+  if(st==='Cleared'){clearedCount++;var c=document.getElementById('clearedToday');if(c)c.textContent=clearedCount.toLocaleString()+' cleared today';}
+}
+for(var i=0;i<6;i++)pushFeed();
+setInterval(pushFeed,2600);
+
+/* ---------- chat ---------- */
+var faq=[
+  {k:['vat','due','return','file'],a:'Your <b>VAT return</b> is due on or before the <b>25th</b> of the month following the end of your tax period. For the current period that is <b>25 July 2026</b>. You can file now on e-Tax — shall I take you there?'},
+  {k:['tin','register','registration'],a:'To get a <b>TIN</b>: companies use their <b>CIPA number</b>; individuals use <b>"I" + Omang number</b>. Register on the BURS eServices portal under <i>Application for eServices</i> → upload Omang/CIPA cert → approval is usually same-day.'},
+  {k:['paye','salary','15000','15,000'],a:'Illustrative <b>PAYE</b> on a P15,000/month salary (resident): roughly <b>P1,200–P1,400</b> after the tax-free threshold and bands. Use the official BURS tax calculator for the exact figure for your tax year.'},
+  {k:['pay','payment','bank','banking'],a:'You can pay via the <b>e-Payment</b> link in e-Tax — it connects directly to the major commercial banks. Use your TIN as the payment reference so it auto-reconciles.'},
+  {k:['refund','status'],a:'I can check a <b>refund status</b> by TIN. Refunds are typically processed within <b>30 days</b> of an assessed return once banking details are verified.'},
+  {k:['setswana','duela','jang','dumela','lekgetho'],a:'Dumela! 👋 Ke kgona go go thusa ka Setswana. <b>O ka duela lekgetho</b> ka go dirisa e-Tax → tobetsa "e-Payment", o tsenye nomoro ya gago ya TIN. A o batla ke go bontshe?'},
+  {k:['deadline','dates','when'],a:'Key dates: <b>VAT</b> — 25th monthly; <b>PAYE</b> — 15th monthly; <b>Corporate Tax</b> return — within 4 months of financial year-end. Want me to set a reminder?'}
+];
+function botReply(q){q=q.toLowerCase();var best=null,score=0;faq.forEach(f=>{var s=f.k.filter(k=>q.includes(k)).length;if(s>score){score=s;best=f;}});return best?best.a:'Good question — I can help with VAT, PAYE, TIN registration, payments and refunds. For anything complex I\'ll route you to a BURS officer with your case already summarised. (Illustrative concept response.)';}
+function addMsg(t,who){var m=document.getElementById('msgs');var d=document.createElement('div');d.className='msg '+who;d.innerHTML=t;m.appendChild(d);m.scrollTop=m.scrollHeight;}
+function sendChat(){var inp=document.getElementById('chatIn');var v=inp.value.trim();if(!v)return;addMsg(v,'user');inp.value='';var t=document.createElement('div');t.className='msg bot';t.textContent='…';document.getElementById('msgs').appendChild(t);setTimeout(()=>{t.remove();addMsg(botReply(v),'bot');},650);}
+['When is my VAT return due?','How do I register for a TIN?','PAYE on P15,000?','Setswana: Ke duela jang?'].forEach(c=>{var b=document.createElement('div');b.className='chip';b.textContent=c;b.onclick=()=>{document.getElementById('chatIn').value=c;sendChat();};document.getElementById('chips').appendChild(b);});
+addMsg('Dumela! 👋 I\'m the BURS taxpayer assistant. Ask me about VAT, PAYE, TIN registration, payments or refunds — in English or Setswana.','bot');
+
+/* ---------- smart audit (VAT verification questionnaire automation) ---------- */
+var auditData=[
+ { // Naledi Holdings — HIGH RISK
+   form:[
+     ['Legal business name','Naledi Holdings (Pty) Ltd','CIPA'],
+     ['TIN / VAT number','C0099310 / VAT active','Lekgetho Live'],
+     ['Incorporated','2019 • 2 directors','CIPA'],
+     ['Industry / sector','Wholesale','CIPA'],
+     ['Physical address','Plot 2241, Gaborone West','CIPA'],
+     ['Bank & money accounts','2 bank + 1 mobile money + merchant','Bank feed'],
+     ['Accounting software','Excel','Interview'],
+     ['VAT filing frequency','Monthly','Lekgetho Live'],
+     ['Reason for registration','Compulsory (turnover threshold)','Interview']
+   ],
+   risk:91, band:'HIGH', action:'Refer for full field audit. Strong indicators of under-declaration and undisclosed activity.', saved:'94 min → 5 min',
+   checks:[
+     ['Annual turnover','Declared P800,000','VAT returns imply P2.10m','flag'],
+     ['Bank inflows (12m)','Not disclosed','P2.41m across 3 accounts','flag'],
+     ['Employees','Declared 3','PAYE shows 11','flag'],
+     ['Imports','Declared none','Customs: 14 import declarations','flag'],
+     ['Related parties','Declared none','CIPA: director owns 2 other entities','flag'],
+     ['Customer concentration','Not disclosed','1 customer = 60% of sales','flag'],
+     ['VAT registration status','Active','Active','match']
+   ],
+   docs:[['Bank Statements',1,'undisclosed accounts'],['Financial Statements',1,'turnover mismatch'],['Sales Invoices',1,'verify output VAT'],['Import Documents',1,'undisclosed imports'],['Share Register',1,'related parties'],['Payroll Records',1,'employee count'],['Trial Balance',1,'reconcile'],['VAT Certificate',0,''],['Certificate of Incorporation',0,'']]
+ },
+ { // Phokoje Retail — MEDIUM RISK
+   form:[
+     ['Legal business name','Phokoje Retail (Pty) Ltd','CIPA'],
+     ['TIN / VAT number','C0071204 / VAT active','Lekgetho Live'],
+     ['Incorporated','2021 • 1 director','CIPA'],
+     ['Industry / sector','Retail','CIPA'],
+     ['Physical address','Plot 884, Francistown','CIPA'],
+     ['Bank & money accounts','1 bank + 1 mobile money','Bank feed'],
+     ['Accounting software','Sage','Interview'],
+     ['VAT filing frequency','Monthly','Lekgetho Live'],
+     ['Reason for registration','Compulsory (turnover threshold)','Interview']
+   ],
+   risk:44, band:'MEDIUM', action:'Desk review. Request bank statements to confirm turnover; clarify undisclosed mobile-money wallet.', saved:'88 min → 5 min',
+   checks:[
+     ['Annual turnover','Declared P1.20m','VAT returns imply P1.35m','minor'],
+     ['Bank inflows (12m)','Not disclosed','P1.42m','minor'],
+     ['Employees','Declared 6','PAYE shows 6','match'],
+     ['Imports','Declared none','Customs: none','match'],
+     ['Mobile money','Declared none','Bank feed: 1 active wallet','minor'],
+     ['Related parties','Declared none','CIPA: none','match'],
+     ['VAT registration status','Active','Active','match']
+   ],
+   docs:[['Bank Statements',1,'confirm turnover'],['Financial Statements',1,'reconcile'],['Sales Invoices',0,''],['VAT Certificate',0,''],['Certificate of Incorporation',0,''],['Trial Balance',0,'']]
+ },
+ { // Tau Construction — LOW RISK
+   form:[
+     ['Legal business name','Tau Construction (Pty) Ltd','CIPA'],
+     ['TIN / VAT number','C0055019 / VAT active','Lekgetho Live'],
+     ['Incorporated','2015 • 3 directors','CIPA'],
+     ['Industry / sector','Construction','CIPA'],
+     ['Physical address','Plot 1190, Gaborone','CIPA'],
+     ['Bank & money accounts','2 business bank accounts','Bank feed'],
+     ['Accounting software','QuickBooks','Interview'],
+     ['VAT filing frequency','Monthly','Lekgetho Live'],
+     ['Reason for registration','Compulsory (turnover threshold)','Interview']
+   ],
+   risk:18, band:'LOW', action:'No action required. Returns consistent with all data sources — monitor at next cycle.', saved:'90 min → 4 min',
+   checks:[
+     ['Annual turnover','Declared P3.40m','VAT returns imply P3.38m','match'],
+     ['Bank inflows (12m)','Disclosed','P3.45m','match'],
+     ['Employees','Declared 18','PAYE shows 18','match'],
+     ['Imports','Declared yes','Customs: 6 declarations (disclosed)','match'],
+     ['Related parties','Declared 1','CIPA: 1 (disclosed)','match'],
+     ['VAT registration status','Active','Active','match']
+   ],
+   docs:[['VAT Certificate',0,'routine'],['Financial Statements',0,'routine'],['Certificate of Incorporation',0,'routine']]
+ }
+];
+function srcPill(s){var map={'CIPA':['blue',''],'Lekgetho Live':['amber',''],'Bank feed':['green',''],'e-Invoicing':['','background:#fff0d6;color:#b9770b'],'Customs':['blue',''],'Interview':['','background:#eef1f4;color:#6b7a8d']};var m=map[s]||['blue',''];return '<span class="pill '+m[0]+'" style="'+m[1]+'">'+s+'</span>';}
+function renderAudit(){
+  var d=auditData[+document.getElementById('auditTp').value];
+  document.getElementById('auditForm').innerHTML=d.form.map(f=>'<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #f1f4f8"><div style="flex:1"><div style="font-size:11px;color:var(--muted)">'+f[0]+'</div><div style="font-weight:600">'+f[1]+'</div></div>'+srcPill(f[2])+'</div>').join('');
+  var col=d.band==='HIGH'?'var(--red)':d.band==='MEDIUM'?'var(--amber)':'var(--green)';
+  document.getElementById('auditVerdict').innerHTML='<h3>⚖️ Compliance verdict</h3><div style="display:flex;align-items:center;gap:16px"><div style="width:84px;height:84px;border-radius:50%;border:6px solid '+col+';display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><div style="font-size:24px;font-weight:800;color:'+col+'">'+d.risk+'</div><div style="font-size:9px;color:var(--muted);letter-spacing:.5px">RISK</div></div><div><span class="pill" style="background:'+col+';color:#fff">'+d.band+' RISK</span><p style="margin:8px 0 0;font-size:12.5px">'+d.action+'</p></div></div><div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)">⏱️ Officer time on this taxpayer: <b style="color:var(--green)">'+d.saved+'</b></div>';
+  document.getElementById('auditChecks').innerHTML=d.checks.map(c=>{var st=c[3];var p=st==='flag'?'<span class="pill red">⚠ Flag</span>':st==='minor'?'<span class="pill amber">Minor</span>':'<span class="pill green">✓ Match</span>';return '<div style="padding:9px 0;border-bottom:1px solid #f1f4f8"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="font-size:13px">'+c[0]+'</b>'+p+'</div><div style="font-size:12px;color:var(--muted);margin-top:2px">'+c[1]+' &nbsp;→&nbsp; <span style="color:var(--ink);font-weight:600">'+c[2]+'</span></div></div>';}).join('');
+  document.getElementById('auditDocs').innerHTML=d.docs.map(x=>'<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:'+(x[1]?'#fffaf0':'#fff')+'"><span style="font-size:15px">'+(x[1]?'☑':'☐')+'</span><div><div style="font-weight:600">'+x[0]+'</div>'+(x[2]?'<div style="font-size:10.5px;color:'+(x[1]?'var(--amber)':'var(--muted)')+'">'+x[2]+'</div>':'')+'</div></div>').join('');
+}
+renderAudit();
+</script>
+</body>
+</html>
