@@ -6,21 +6,38 @@
 <title>Lekgetho AI — BURS Smart Revenue Suite (Concept)</title>
 <style>
   :root{
-    --navy:#0D1B2A; --navy2:#15263b; --navy3:#1e3450;
-    --orange:#F4A623; --orange-d:#d98e10;
-    --bg:#f4f6f9; --card:#ffffff; --line:#e4e9f0;
-    --ink:#1f2d3d; --muted:#6b7a8d;
-    --green:#27ae60; --red:#e74c3c; --amber:#f39c12; --blue:#75AADB;
-    --shadow:0 1px 3px rgba(13,27,42,.08),0 8px 24px rgba(13,27,42,.06);
+    /* Heavenly Botswana — sky-blue + white glass, deep sky-navy rail, black text */
+    --navy:#0F172A; --navy2:#0E2A47; --navy3:#13314f;
+    --orange:#2E8BE6; --orange-d:#1f6fc0;   /* accent renamed feel: sky-blue (Pula) */
+    --bg:#EAF4FF; --card:#ffffff; --line:#DCEBFB;
+    --ink:#0F172A; --muted:#475569;
+    --green:#059669; --red:#DC2626; --amber:#D97706; --blue:#75AADB;
+    --sky:#2E8BE6; --skyL:#EAF4FF;
+    --shadow:0 12px 34px -12px rgba(46,139,230,.30),0 2px 8px rgba(46,139,230,.08);
   }
   *{box-sizing:border-box}
   html,body{margin:0}
-  body{font-family:'Segoe UI',Roboto,system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5}
+  body{font-family:'Segoe UI',Roboto,system-ui,-apple-system,sans-serif;color:var(--ink);font-size:14px;line-height:1.5;min-height:100vh;
+    background:
+      radial-gradient(60vmax 36vmax at 50% -8%, rgba(46,139,230,.14), transparent 60%),
+      linear-gradient(180deg,#EAF4FF 0%,#F7FBFF 45%,#FFFFFF 100%) fixed;}
+  body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(34vmax 34vmax at 12% 18%, rgba(117,170,219,.22), transparent 60%),
+      radial-gradient(30vmax 30vmax at 88% 10%, rgba(46,139,230,.16), transparent 62%),
+      radial-gradient(42vmax 42vmax at 80% 94%, rgba(46,139,230,.12), transparent 60%);
+    animation:drift 24s ease-in-out infinite alternate}
+  @keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-3%,0) scale(1.06)}}
+  @media (prefers-reduced-motion:reduce){body::before,.hero:after,.mark::after{animation:none!important}}
   /* ---------- Header ---------- */
-  header{background:linear-gradient(120deg,var(--navy),var(--navy3));color:#fff;border-bottom:3px solid var(--orange)}
+  header{background:linear-gradient(120deg,#0E2A47,#13314f);color:#fff;position:relative;border-bottom:0;box-shadow:0 8px 28px -12px rgba(14,42,71,.55)}
+  header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;
+    background:linear-gradient(90deg,#75AADB 0 38%,#fff 38% 44%,#000 44% 56%,#fff 56% 62%,#75AADB 62% 100%)}
   .topbar{display:flex;align-items:center;gap:16px;padding:14px 22px;max-width:1180px;margin:0 auto}
   .logo{display:flex;align-items:center;gap:12px}
-  .mark{width:44px;height:44px;border-radius:11px;background:var(--orange);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--navy);font-size:20px;box-shadow:0 4px 12px rgba(244,166,35,.35)}
+  .mark{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#2E8BE6,#75AADB);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:20px;box-shadow:0 4px 16px rgba(46,139,230,.55),inset 0 0 0 1px rgba(255,255,255,.25);position:relative}
+  .mark::after{content:"";position:absolute;inset:-3px;border-radius:16px;padding:2px;background:conic-gradient(from 0deg,#2E8BE6,#75AADB,#fff,#2E8BE6);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 5s linear infinite;opacity:.85}
+  @keyframes spin{to{transform:rotate(1turn)}}
   .brand h1{font-size:18px;margin:0;letter-spacing:.3px}
   .brand p{margin:0;font-size:11.5px;color:#aebfd1;letter-spacing:.4px;text-transform:uppercase}
   .topbar .spacer{flex:1}
@@ -28,8 +45,8 @@
   .btn{cursor:pointer;border:none;font-family:inherit;font-size:13px;border-radius:8px;padding:9px 14px;font-weight:600;transition:.15s}
   .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2)}
   .btn-ghost:hover{background:rgba(255,255,255,.22)}
-  .btn-primary{background:var(--orange);color:var(--navy)}
-  .btn-primary:hover{background:var(--orange-d)}
+  .btn-primary{background:linear-gradient(135deg,#2E8BE6,#1f6fc0);color:#fff;box-shadow:0 6px 18px -8px rgba(46,139,230,.7)}
+  .btn-primary:hover{background:linear-gradient(135deg,#1f6fc0,#175a9e)}
   /* ---------- Nav ---------- */
   nav{background:var(--navy2);position:sticky;top:0;z-index:20}
   .navinner{max-width:1180px;margin:0 auto;display:flex;gap:2px;padding:0 14px;overflow-x:auto}
@@ -47,10 +64,10 @@
   .cols-4{grid-template-columns:repeat(4,1fr)}
   .cols-3{grid-template-columns:repeat(3,1fr)}
   .cols-2{grid-template-columns:1.15fr .85fr}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.86),rgba(255,255,255,.70));-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);border:1px solid rgba(255,255,255,.65);border-radius:16px;padding:18px;box-shadow:var(--shadow);position:relative}
   .card h3{margin:0 0 12px;font-size:14.5px;display:flex;align-items:center;gap:8px}
   .kpi .label{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
-  .kpi .val{font-size:27px;font-weight:800;color:var(--navy);margin-top:6px}
+  .kpi .val{font-size:27px;font-weight:800;margin-top:6px;background:linear-gradient(120deg,#0E2A47 0%,#2E8BE6 65%,#75AADB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-variant-numeric:tabular-nums lining-nums}
   .kpi .delta{font-size:12px;margin-top:4px;font-weight:600}
   .up{color:var(--green)} .down{color:var(--red)}
   .pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700}
@@ -58,10 +75,13 @@
   .pill.red{background:#fdecea;color:#c0392b}
   .pill.amber{background:#fff4e2;color:#b9770b}
   .pill.blue{background:#eaf3fb;color:#2e6da4}
-  .hero{background:linear-gradient(120deg,var(--navy),var(--navy3));color:#fff;border-radius:16px;padding:26px 28px;margin-bottom:18px;position:relative;overflow:hidden}
-  .hero:after{content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(244,166,35,.25),transparent 70%)}
-  .hero h2{margin:0 0 6px;font-size:23px}
-  .hero p{margin:0;color:#c6d4e3;max-width:620px}
+  .hero{background:linear-gradient(125deg,#0E2A47 0%,#1f6fc0 58%,#2E8BE6 100%);color:#fff;border-radius:20px;padding:30px 32px;margin-bottom:18px;position:relative;overflow:hidden;box-shadow:0 26px 64px -30px rgba(14,42,71,.65)}
+  .hero:after{content:"";position:absolute;right:-50px;top:-60px;width:260px;height:260px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.95),rgba(173,216,255,.55) 36%,rgba(46,139,230,.18) 62%,transparent 74%);
+    box-shadow:0 0 90px rgba(173,216,255,.55);animation:float 7s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  .hero h2{margin:0 0 6px;font-size:23px;position:relative}
+  .hero p{margin:0;color:#dbeaff;max-width:620px;position:relative}
   .progressbar{height:14px;background:#e9eef5;border-radius:10px;overflow:hidden}
   .progressbar > span{display:block;height:100%;background:linear-gradient(90deg,var(--orange),var(--orange-d))}
   .modcard{cursor:pointer;transition:.18s}
@@ -95,7 +115,7 @@
   .msg.user{background:var(--navy);color:#fff;align-self:flex-end;border-bottom-right-radius:3px}
   .chips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
   .chip{background:#fff;border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-size:12.5px;cursor:pointer;transition:.15s}
-  .chip:hover{border-color:var(--orange);background:#fffaf0}
+  .chip:hover{border-color:var(--orange);background:#f0f7ff}
   .chatinput{display:flex;gap:8px;margin-top:8px}
   .bars{display:flex;align-items:flex-end;gap:10px;height:130px;padding-top:10px}
   .bar{flex:1;background:linear-gradient(180deg,var(--orange),var(--orange-d));border-radius:6px 6px 0 0;position:relative}
@@ -107,7 +127,7 @@
   .node.cur .b{background:var(--orange);box-shadow:0 0 0 4px rgba(244,166,35,.25)}
   .conn{height:3px;flex:1;background:#dfe6ee;border-radius:3px}
   .conn.done{background:var(--green)}
-  .notes{background:#fffaf0;border:1px dashed var(--orange);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:12.5px;display:none}
+  .notes{background:#f0f7ff;border:1px dashed var(--orange);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:12.5px;display:none}
   .notes.show{display:block}
   .notes b{color:var(--orange-d)}
   footer{max-width:1180px;margin:0 auto;padding:18px 22px 40px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line)}
@@ -116,7 +136,7 @@
   .btn-ghost2{background:#eef3f9;color:var(--navy);border:1px solid var(--line);padding:7px 11px;font-size:12.5px}
   .btn-ghost2:hover{background:#e2eaf3}
   .dropzone{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:2px dashed var(--line);border-radius:12px;padding:22px;cursor:pointer;transition:.15s;background:#fbfcfe}
-  .dropzone:hover{border-color:var(--orange);background:#fffaf0}
+  .dropzone:hover{border-color:var(--orange);background:#f0f7ff}
   .formtab{background:#eef3f9;border:1px solid var(--line);color:var(--navy);border-radius:7px;padding:5px 10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
   .formtab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
   .ffield{margin-bottom:10px}
@@ -189,13 +209,13 @@
       <div class="card modcard" data-go="customs"><div class="ic">🚛</div><h3 style="margin-top:12px">Customs &amp; Excise</h3><p style="color:var(--muted);margin:0;font-size:12.5px">e-Clearance, track-and-trace for excisables, transit monitoring.</p></div>
     </div>
     <div class="card modcard" data-go="audit" style="margin-top:16px;border-left:4px solid var(--orange);display:flex;gap:16px;align-items:center">
-      <div class="ic" style="background:#fff0d6;flex-shrink:0">🔎</div>
+      <div class="ic" style="background:#dceefc;flex-shrink:0">🔎</div>
       <div style="flex:1"><h3 style="margin:0 0 3px">Smart Audit — turn the VAT verification questionnaire into one click <span class="pill amber">NEW</span></h3>
       <p style="color:var(--muted);margin:0;font-size:12.5px">The paper officers fill by hand is auto-populated from CIPA, Lekgetho Live, banking &amp; customs — then the taxpayer's answers are cross-checked and inconsistencies flagged automatically.</p></div>
       <button class="btn btn-primary">Open →</button>
     </div>
     <div class="card modcard" data-go="capture" style="margin-top:12px;border-left:4px solid var(--orange);display:flex;gap:16px;align-items:center">
-      <div class="ic" style="background:#fff0d6;flex-shrink:0">📸</div>
+      <div class="ic" style="background:#dceefc;flex-shrink:0">📸</div>
       <div style="flex:1"><h3 style="margin:0 0 3px">Smart Capture — photograph a document, the form fills itself <span class="pill amber">NEW</span></h3>
       <p style="color:var(--muted);margin:0;font-size:12.5px">Snap a receipt, Omang or payslip → fields are read automatically and flow into the official BURS forms (ITW8, ITW7A, ITW10, VAT 002), ready to submit.</p></div>
       <button class="btn btn-primary">Open →</button>
@@ -250,7 +270,7 @@
       </div>
       <div style="flex:1"></div>
       <div style="font-size:11.5px;color:var(--muted)">Connected sources:</div>
-      <span class="pill blue">CIPA</span><span class="pill amber">Lekgetho Live</span><span class="pill green">Bank feed</span><span class="pill" style="background:#fff0d6;color:#b9770b">e-Invoicing</span><span class="pill blue">Customs</span>
+      <span class="pill blue">CIPA</span><span class="pill amber">Lekgetho Live</span><span class="pill green">Bank feed</span><span class="pill" style="background:#dceefc;color:#1f6fc0">e-Invoicing</span><span class="pill blue">Customs</span>
     </div>
 
     <div class="grid cols-2">
@@ -615,14 +635,14 @@ var auditData=[
    docs:[['VAT Certificate',0,'routine'],['Financial Statements',0,'routine'],['Certificate of Incorporation',0,'routine']]
  }
 ];
-function srcPill(s){var map={'CIPA':['blue',''],'Lekgetho Live':['amber',''],'Bank feed':['green',''],'e-Invoicing':['','background:#fff0d6;color:#b9770b'],'Customs':['blue',''],'Interview':['','background:#eef1f4;color:#6b7a8d']};var m=map[s]||['blue',''];return '<span class="pill '+m[0]+'" style="'+m[1]+'">'+s+'</span>';}
+function srcPill(s){var map={'CIPA':['blue',''],'Lekgetho Live':['amber',''],'Bank feed':['green',''],'e-Invoicing':['','background:#dceefc;color:#1f6fc0'],'Customs':['blue',''],'Interview':['','background:#eef1f4;color:#6b7a8d']};var m=map[s]||['blue',''];return '<span class="pill '+m[0]+'" style="'+m[1]+'">'+s+'</span>';}
 function renderAudit(){
   var d=auditData[+document.getElementById('auditTp').value];
   document.getElementById('auditForm').innerHTML=d.form.map(f=>'<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #f1f4f8"><div style="flex:1"><div style="font-size:11px;color:var(--muted)">'+f[0]+'</div><div style="font-weight:600">'+f[1]+'</div></div>'+srcPill(f[2])+'</div>').join('');
   var col=d.band==='HIGH'?'var(--red)':d.band==='MEDIUM'?'var(--amber)':'var(--green)';
   document.getElementById('auditVerdict').innerHTML='<h3>⚖️ Compliance verdict</h3><div style="display:flex;align-items:center;gap:16px"><div style="width:84px;height:84px;border-radius:50%;border:6px solid '+col+';display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><div style="font-size:24px;font-weight:800;color:'+col+'">'+d.risk+'</div><div style="font-size:9px;color:var(--muted);letter-spacing:.5px">RISK</div></div><div><span class="pill" style="background:'+col+';color:#fff">'+d.band+' RISK</span><p style="margin:8px 0 0;font-size:12.5px">'+d.action+'</p></div></div><div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)">⏱️ Officer time on this taxpayer: <b style="color:var(--green)">'+d.saved+'</b></div>';
   document.getElementById('auditChecks').innerHTML=d.checks.map(c=>{var st=c[3];var p=st==='flag'?'<span class="pill red">⚠ Flag</span>':st==='minor'?'<span class="pill amber">Minor</span>':'<span class="pill green">✓ Match</span>';return '<div style="padding:9px 0;border-bottom:1px solid #f1f4f8"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="font-size:13px">'+c[0]+'</b>'+p+'</div><div style="font-size:12px;color:var(--muted);margin-top:2px">'+c[1]+' &nbsp;→&nbsp; <span style="color:var(--ink);font-weight:600">'+c[2]+'</span></div></div>';}).join('');
-  document.getElementById('auditDocs').innerHTML=d.docs.map(x=>'<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:'+(x[1]?'#fffaf0':'#fff')+'"><span style="font-size:15px">'+(x[1]?'☑':'☐')+'</span><div><div style="font-weight:600">'+x[0]+'</div>'+(x[2]?'<div style="font-size:10.5px;color:'+(x[1]?'var(--amber)':'var(--muted)')+'">'+x[2]+'</div>':'')+'</div></div>').join('');
+  document.getElementById('auditDocs').innerHTML=d.docs.map(x=>'<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:'+(x[1]?'#f0f7ff':'#fff')+'"><span style="font-size:15px">'+(x[1]?'☑':'☐')+'</span><div><div style="font-weight:600">'+x[0]+'</div>'+(x[2]?'<div style="font-size:10.5px;color:'+(x[1]?'var(--amber)':'var(--muted)')+'">'+x[2]+'</div>':'')+'</div></div>').join('');
 }
 renderAudit();
 
