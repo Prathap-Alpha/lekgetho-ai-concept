@@ -7,36 +7,36 @@
 <style>
   :root{
     /* Heavenly Botswana — sky-blue + white glass, deep sky-navy rail, black text */
-    --navy:#0F172A; --navy2:#0E2A47; --navy3:#13314f;
-    --orange:#2E8BE6; --orange-d:#1f6fc0;   /* accent renamed feel: sky-blue (Pula) */
-    --bg:#EAF4FF; --card:#ffffff; --line:#DCEBFB;
+    --navy:#0F172A; --navy2:#103A66; --navy3:#134A78;
+    --orange:#0E9CB0; --orange-d:#15578A;   /* accent renamed feel: sky-blue (Pula) */
+    --bg:#E8F6F8; --card:#ffffff; --line:#DCEBFB;
     --ink:#0F172A; --muted:#475569;
     --green:#059669; --red:#DC2626; --amber:#D97706; --blue:#75AADB;
-    --sky:#2E8BE6; --skyL:#EAF4FF;
-    --shadow:0 12px 34px -12px rgba(46,139,230,.30),0 2px 8px rgba(46,139,230,.08);
+    --sky:#0E9CB0; --skyL:#E8F6F8;
+    --shadow:0 12px 34px -12px rgba(14,156,176,.30),0 2px 8px rgba(14,156,176,.08);
   }
   *{box-sizing:border-box}
   html,body{margin:0}
   body{font-family:'Segoe UI',Roboto,system-ui,-apple-system,sans-serif;color:var(--ink);font-size:14px;line-height:1.5;min-height:100vh;
     background:
-      radial-gradient(60vmax 36vmax at 50% -8%, rgba(46,139,230,.14), transparent 60%),
-      linear-gradient(180deg,#EAF4FF 0%,#F7FBFF 45%,#FFFFFF 100%) fixed;}
+      radial-gradient(60vmax 36vmax at 50% -8%, rgba(14,156,176,.14), transparent 60%),
+      linear-gradient(180deg,#E8F6F8 0%,#F7FBFF 45%,#FFFFFF 100%) fixed;}
   body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
     background:
-      radial-gradient(34vmax 34vmax at 12% 18%, rgba(117,170,219,.22), transparent 60%),
-      radial-gradient(30vmax 30vmax at 88% 10%, rgba(46,139,230,.16), transparent 62%),
-      radial-gradient(42vmax 42vmax at 80% 94%, rgba(46,139,230,.12), transparent 60%);
+      radial-gradient(34vmax 34vmax at 12% 18%, rgba(102,202,216,.22), transparent 60%),
+      radial-gradient(30vmax 30vmax at 88% 10%, rgba(14,156,176,.16), transparent 62%),
+      radial-gradient(42vmax 42vmax at 80% 94%, rgba(14,156,176,.12), transparent 60%);
     animation:drift 24s ease-in-out infinite alternate}
   @keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-3%,0) scale(1.06)}}
   @media (prefers-reduced-motion:reduce){body::before,.hero:after,.mark::after{animation:none!important}}
   /* ---------- Header ---------- */
-  header{background:linear-gradient(120deg,#0E2A47,#13314f);color:#fff;position:relative;border-bottom:0;box-shadow:0 8px 28px -12px rgba(14,42,71,.55)}
+  header{background:linear-gradient(115deg,#0E8294 0%,#134A78 55%,#103A66 100%);color:#fff;position:relative;border-bottom:0;box-shadow:0 8px 28px -12px rgba(16,58,102,.55)}
   header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;
     background:linear-gradient(90deg,#75AADB 0 38%,#fff 38% 44%,#000 44% 56%,#fff 56% 62%,#75AADB 62% 100%)}
   .topbar{display:flex;align-items:center;gap:16px;padding:14px 22px;max-width:1180px;margin:0 auto}
   .logo{display:flex;align-items:center;gap:12px}
-  .mark{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#2E8BE6,#75AADB);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:20px;box-shadow:0 4px 16px rgba(46,139,230,.55),inset 0 0 0 1px rgba(255,255,255,.25);position:relative}
-  .mark::after{content:"";position:absolute;inset:-3px;border-radius:16px;padding:2px;background:conic-gradient(from 0deg,#2E8BE6,#75AADB,#fff,#2E8BE6);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 5s linear infinite;opacity:.85}
+  .mark{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#0E9CB0,#16C2D6);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:20px;box-shadow:0 4px 16px rgba(14,156,176,.55),inset 0 0 0 1px rgba(255,255,255,.25);position:relative}
+  .mark::after{content:"";position:absolute;inset:-3px;border-radius:16px;padding:2px;background:conic-gradient(from 0deg,#0E9CB0,#16C2D6,#fff,#0E9CB0);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 5s linear infinite;opacity:.85}
   @keyframes spin{to{transform:rotate(1turn)}}
   .brand h1{font-size:18px;margin:0;letter-spacing:.3px}
   .brand p{margin:0;font-size:11.5px;color:#aebfd1;letter-spacing:.4px;text-transform:uppercase}
@@ -45,8 +45,8 @@
   .btn{cursor:pointer;border:none;font-family:inherit;font-size:13px;border-radius:8px;padding:9px 14px;font-weight:600;transition:.15s}
   .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.2)}
   .btn-ghost:hover{background:rgba(255,255,255,.22)}
-  .btn-primary{background:linear-gradient(135deg,#2E8BE6,#1f6fc0);color:#fff;box-shadow:0 6px 18px -8px rgba(46,139,230,.7)}
-  .btn-primary:hover{background:linear-gradient(135deg,#1f6fc0,#175a9e)}
+  .btn-primary{background:linear-gradient(135deg,#0E9CB0,#15578A);color:#fff;box-shadow:0 6px 18px -8px rgba(14,156,176,.7)}
+  .btn-primary:hover{background:linear-gradient(135deg,#15578A,#0E3F66)}
   /* ---------- Nav ---------- */
   nav{background:var(--navy2);position:sticky;top:0;z-index:20}
   .navinner{max-width:1180px;margin:0 auto;display:flex;gap:2px;padding:0 14px;overflow-x:auto}
@@ -67,7 +67,7 @@
   .card{background:linear-gradient(180deg,rgba(255,255,255,.86),rgba(255,255,255,.70));-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);border:1px solid rgba(255,255,255,.65);border-radius:16px;padding:18px;box-shadow:var(--shadow);position:relative}
   .card h3{margin:0 0 12px;font-size:14.5px;display:flex;align-items:center;gap:8px}
   .kpi .label{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
-  .kpi .val{font-size:27px;font-weight:800;margin-top:6px;background:linear-gradient(120deg,#0E2A47 0%,#2E8BE6 65%,#75AADB 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-variant-numeric:tabular-nums lining-nums}
+  .kpi .val{font-size:27px;font-weight:800;margin-top:6px;background:linear-gradient(120deg,#103A66 0%,#0E9CB0 65%,#16C2D6 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;font-variant-numeric:tabular-nums lining-nums}
   .kpi .delta{font-size:12px;margin-top:4px;font-weight:600}
   .up{color:var(--green)} .down{color:var(--red)}
   .pill{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:700}
@@ -75,9 +75,9 @@
   .pill.red{background:#fdecea;color:#c0392b}
   .pill.amber{background:#fff4e2;color:#b9770b}
   .pill.blue{background:#eaf3fb;color:#2e6da4}
-  .hero{background:linear-gradient(125deg,#0E2A47 0%,#1f6fc0 58%,#2E8BE6 100%);color:#fff;border-radius:20px;padding:30px 32px;margin-bottom:18px;position:relative;overflow:hidden;box-shadow:0 26px 64px -30px rgba(14,42,71,.65)}
+  .hero{background:linear-gradient(125deg,#103A66 0%,#15578A 58%,#0E9CB0 100%);color:#fff;border-radius:20px;padding:30px 32px;margin-bottom:18px;position:relative;overflow:hidden;box-shadow:0 26px 64px -30px rgba(14,42,71,.65)}
   .hero:after{content:"";position:absolute;right:-50px;top:-60px;width:260px;height:260px;border-radius:50%;
-    background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.95),rgba(173,216,255,.55) 36%,rgba(46,139,230,.18) 62%,transparent 74%);
+    background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.95),rgba(173,216,255,.55) 36%,rgba(14,156,176,.18) 62%,transparent 74%);
     box-shadow:0 0 90px rgba(173,216,255,.55);animation:float 7s ease-in-out infinite}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
   #globe3d{position:absolute;right:0;top:0;bottom:0;width:46%;z-index:0;pointer-events:none}
@@ -274,7 +274,7 @@
       </div>
       <div style="flex:1"></div>
       <div style="font-size:11.5px;color:var(--muted)">Connected sources:</div>
-      <span class="pill blue">CIPA</span><span class="pill amber">Lekgetho Live</span><span class="pill green">Bank feed</span><span class="pill" style="background:#dceefc;color:#1f6fc0">e-Invoicing</span><span class="pill blue">Customs</span>
+      <span class="pill blue">CIPA</span><span class="pill amber">Lekgetho Live</span><span class="pill green">Bank feed</span><span class="pill" style="background:#dceefc;color:#15578A">e-Invoicing</span><span class="pill blue">Customs</span>
     </div>
 
     <div class="grid cols-2">
@@ -639,7 +639,7 @@ var auditData=[
    docs:[['VAT Certificate',0,'routine'],['Financial Statements',0,'routine'],['Certificate of Incorporation',0,'routine']]
  }
 ];
-function srcPill(s){var map={'CIPA':['blue',''],'Lekgetho Live':['amber',''],'Bank feed':['green',''],'e-Invoicing':['','background:#dceefc;color:#1f6fc0'],'Customs':['blue',''],'Interview':['','background:#eef1f4;color:#6b7a8d']};var m=map[s]||['blue',''];return '<span class="pill '+m[0]+'" style="'+m[1]+'">'+s+'</span>';}
+function srcPill(s){var map={'CIPA':['blue',''],'Lekgetho Live':['amber',''],'Bank feed':['green',''],'e-Invoicing':['','background:#dceefc;color:#15578A'],'Customs':['blue',''],'Interview':['','background:#eef1f4;color:#6b7a8d']};var m=map[s]||['blue',''];return '<span class="pill '+m[0]+'" style="'+m[1]+'">'+s+'</span>';}
 function renderAudit(){
   var d=auditData[+document.getElementById('auditTp').value];
   document.getElementById('auditForm').innerHTML=d.form.map(f=>'<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #f1f4f8"><div style="flex:1"><div style="font-size:11px;color:var(--muted)">'+f[0]+'</div><div style="font-weight:600">'+f[1]+'</div></div>'+srcPill(f[2])+'</div>').join('');
@@ -771,8 +771,8 @@ function init3D(){
       var g=new THREE.Group(); scene.add(g);
       var R=1.72;
       var geo=new THREE.IcosahedronGeometry(R,2);
-      g.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({color:0x2E8BE6, transparent:true, opacity:0.10})));
-      g.add(new THREE.LineSegments(new THREE.WireframeGeometry(geo), new THREE.LineBasicMaterial({color:0x9fd0ff, transparent:true, opacity:0.55})));
+      g.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({color:0x0E9CB0, transparent:true, opacity:0.10})));
+      g.add(new THREE.LineSegments(new THREE.WireframeGeometry(geo), new THREE.LineBasicMaterial({color:0x66CAD8, transparent:true, opacity:0.55})));
 
       /* ---- glowing customs-flow arcs across the surface, each with a travelling pulse ---- */
       function surf(){var u=Math.random(),v=Math.random();var th=2*Math.PI*u,ph=Math.acos(2*v-1);return new THREE.Vector3(R*Math.sin(ph)*Math.cos(th),R*Math.cos(ph),R*Math.sin(ph)*Math.sin(th));}
@@ -782,7 +782,7 @@ function init3D(){
         var mid=p0.clone().add(p1).multiplyScalar(0.5).normalize().multiplyScalar(R*(1.32+Math.random()*0.34));
         var curve=new THREE.QuadraticBezierCurve3(p0,mid,p1);
         g.add(new THREE.Mesh(new THREE.TubeGeometry(curve,32,0.012,6,false),
-          new THREE.MeshBasicMaterial({color:(a%2?0x2E8BE6:0xffffff),transparent:true,opacity:0.5,blending:THREE.AdditiveBlending})));
+          new THREE.MeshBasicMaterial({color:(a%2?0x0E9CB0:0xffffff),transparent:true,opacity:0.5,blending:THREE.AdditiveBlending})));
         var pulse=new THREE.Mesh(new THREE.SphereGeometry(0.045,8,8),
           new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0.95,blending:THREE.AdditiveBlending}));
         g.add(pulse); pulses.push({curve:curve,m:pulse,t:Math.random(),s:0.004+Math.random()*0.006});
@@ -791,7 +791,7 @@ function init3D(){
       /* ---- orbiting satellite nodes ---- */
       var nodes=new THREE.Group(); scene.add(nodes); var dots=[];
       for(var i=0;i<16;i++){
-        var m=new THREE.Mesh(new THREE.SphereGeometry(0.05,8,8), new THREE.MeshBasicMaterial({color:(i%3?0xffffff:0x2E8BE6)}));
+        var m=new THREE.Mesh(new THREE.SphereGeometry(0.05,8,8), new THREE.MeshBasicMaterial({color:(i%3?0xffffff:0x0E9CB0)}));
         m.userData={r:2.2+Math.random()*0.8, a:Math.random()*Math.PI*2, y:(Math.random()-0.5)*2.6, s:0.002+Math.random()*0.005};
         nodes.add(m); dots.push(m);
       }
@@ -851,7 +851,7 @@ function initBg3D(){
     var scene=new THREE.Scene();var cam=new THREE.PerspectiveCamera(50,W/H,0.1,100);cam.position.z=10;
     var rnd=new THREE.WebGLRenderer({alpha:true,antialias:true});rnd.setSize(W,H);rnd.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));mount.appendChild(rnd.domElement);
     var geos=[new THREE.IcosahedronGeometry(1,0),new THREE.OctahedronGeometry(1,0),new THREE.DodecahedronGeometry(1,0)];var shapes=[];
-    for(var i=0;i<7;i++){var mesh=new THREE.LineSegments(new THREE.WireframeGeometry(geos[i%geos.length]),new THREE.LineBasicMaterial({color:0x9fd0ff,transparent:true,opacity:0.15}));mesh.scale.setScalar(0.8+Math.random()*2.2);mesh.position.set((Math.random()-0.5)*16,(Math.random()-0.5)*10,(Math.random()-0.5)*6-2);mesh.userData={rx:(Math.random()-0.5)*0.0016,ry:(Math.random()-0.5)*0.0016,fy:Math.random()*Math.PI*2};scene.add(mesh);shapes.push(mesh);}
+    for(var i=0;i<7;i++){var mesh=new THREE.LineSegments(new THREE.WireframeGeometry(geos[i%geos.length]),new THREE.LineBasicMaterial({color:0x66CAD8,transparent:true,opacity:0.15}));mesh.scale.setScalar(0.8+Math.random()*2.2);mesh.position.set((Math.random()-0.5)*16,(Math.random()-0.5)*10,(Math.random()-0.5)*6-2);mesh.userData={rx:(Math.random()-0.5)*0.0016,ry:(Math.random()-0.5)*0.0016,fy:Math.random()*Math.PI*2};scene.add(mesh);shapes.push(mesh);}
     var t=0;function frame(){t+=0.01;for(var k=0;k<shapes.length;k++){var m=shapes[k];m.rotation.x+=m.userData.rx;m.rotation.y+=m.userData.ry;m.position.y+=Math.sin(t+m.userData.fy)*0.0015;}rnd.render(scene,cam);requestAnimationFrame(frame);}frame();
     window.addEventListener('resize',function(){var w=window.innerWidth,h=window.innerHeight;cam.aspect=w/h;cam.updateProjectionMatrix();rnd.setSize(w,h);});
   }catch(e){} }
