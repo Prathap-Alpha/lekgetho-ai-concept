@@ -39,7 +39,7 @@
   .mark::after{content:"";position:absolute;inset:-3px;border-radius:16px;padding:2px;background:conic-gradient(from 0deg,#0E9CB0,#16C2D6,#fff,#0E9CB0);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spin 5s linear infinite;opacity:.85}
   @keyframes spin{to{transform:rotate(1turn)}}
   .brand h1{font-size:18px;margin:0;letter-spacing:.3px}
-  .brand p{margin:0;font-size:11.5px;color:#aebfd1;letter-spacing:.4px;text-transform:uppercase}
+  .brand p{margin:0;font-size:11.5px;color:#cfe0f0;letter-spacing:.4px;text-transform:uppercase}
   .topbar .spacer{flex:1}
   .badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:6px 12px;border-radius:20px;font-size:11.5px;color:#dbe6f2}
   .btn{cursor:pointer;border:none;font-family:inherit;font-size:13px;border-radius:8px;padding:9px 14px;font-weight:600;transition:.15s}
@@ -50,7 +50,7 @@
   /* ---------- Nav ---------- */
   nav{background:var(--navy2);position:sticky;top:0;z-index:20}
   .navinner{max-width:1180px;margin:0 auto;display:flex;gap:2px;padding:0 14px;overflow-x:auto}
-  .tab{color:#9fb1c6;background:none;border:none;padding:13px 16px;font-size:13.5px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;font-family:inherit}
+  .tab{color:#b9c8da;background:none;border:none;padding:13px 16px;font-size:13.5px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;font-family:inherit}
   .tab:hover{color:#fff}
   .tab.active{color:#fff;border-bottom-color:var(--orange)}
   /* ---------- Layout ---------- */
@@ -151,7 +151,8 @@
   .docthumb{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff;font-family:'Consolas',monospace;font-size:10.5px;color:#333;line-height:1.6}
   .scanline{height:3px;background:var(--orange);border-radius:3px;animation:scan 1.1s ease-in-out infinite}
   @keyframes scan{0%{width:5%}50%{width:100%}100%{width:5%}}
-  @media(max-width:880px){.cols-4{grid-template-columns:repeat(2,1fr)}.cols-3{grid-template-columns:1fr}.cols-2{grid-template-columns:1fr}}
+  .tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  @media(max-width:880px){.cols-4{grid-template-columns:repeat(2,1fr)}.cols-3{grid-template-columns:1fr}.cols-2{grid-template-columns:1fr}#globe3d{width:62%;opacity:.45}}
 </style>
 </head>
 <body>
@@ -174,11 +175,16 @@
   <div class="navinner">
     <button class="tab active" data-v="overview">Overview</button>
     <button class="tab" data-v="einvoice">e-Invoicing (CTC)</button>
+    <button class="tab" data-v="txmon">Transaction Monitoring</button>
     <button class="tab" data-v="audit">Smart Audit</button>
     <button class="tab" data-v="capture">Smart Capture</button>
+    <button class="tab" data-v="tp360">Taxpayer 360</button>
     <button class="tab" data-v="service">Taxpayer Service</button>
     <button class="tab" data-v="backoffice">Back-Office</button>
     <button class="tab" data-v="customs">Customs &amp; Excise</button>
+    <button class="tab" data-v="analytics">Analytics &amp; BI</button>
+    <button class="tab" data-v="integrations">Integrations</button>
+    <button class="tab" data-v="eoi">EOI Coverage</button>
   </div>
 </nav>
 
@@ -188,7 +194,7 @@
     <div class="hero">
       <div id="globe3d" aria-hidden="true"></div>
       <h2>Helping BURS collect smarter — not harder.</h2>
-      <p>A single AI-assisted platform across the four pillars of daily revenue work: real-time VAT clearance, taxpayer self-service, internal processing &amp; audit, and customs. Built to close the VAT gap and hit the P120&nbsp;billion 2024–2029 target.</p>
+      <p>One AI-assisted platform spanning <b>both phases</b> of BURS's Domestic Tax Digitalisation programme — Phase&nbsp;1 real-time e-invoicing &amp; transaction monitoring, Phase&nbsp;2 the enterprise tax-management platform. Built to close the VAT gap and hit the P120&nbsp;billion 2024–2029 target.</p>
     </div>
 
     <div class="grid cols-4" style="margin-bottom:16px">
@@ -202,15 +208,21 @@
       <h3>Strategic target — P120bn mobilised by March 2029</h3>
       <div class="progressbar"><span style="width:39%"></span></div>
       <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:12.5px;color:var(--muted)">
-        <span><b style="color:var(--navy)">P47.3bn</b> mobilised</span><span>39% of plan</span><span>P120bn goal</span>
+        <span><b style="color:var(--navy)">P47.3bn</b> mobilised</span><span>39% of plan</span><span>P120bn goal · illustrative</span>
       </div>
     </div>
 
     <div class="grid cols-4">
-      <div class="card modcard" data-go="einvoice"><div class="ic">🧾</div><h3 style="margin-top:12px">e-Invoicing (CTC)</h3><p style="color:var(--muted);margin:0;font-size:12.5px">Real-time clearance of every VAT invoice. Directly attacks the ~60% VAT leakage.</p></div>
+      <div class="card modcard" data-go="einvoice"><div class="ic">🧾</div><h3 style="margin-top:12px">e-Invoicing (CTC)</h3><p style="color:var(--muted);margin:0;font-size:12.5px">Real-time clearance of every VAT invoice. Directly attacks the estimated VAT leakage.</p></div>
       <div class="card modcard" data-go="service"><div class="ic">💬</div><h3 style="margin-top:12px">Taxpayer Service</h3><p style="color:var(--muted);margin:0;font-size:12.5px">Bilingual AI assistant over e-Tax &amp; Lekgetho Live. 24/7 self-service.</p></div>
       <div class="card modcard" data-go="backoffice"><div class="ic">📊</div><h3 style="margin-top:12px">Back-Office</h3><p style="color:var(--muted);margin:0;font-size:12.5px">Auto-processing of returns + AI audit case selection by risk.</p></div>
       <div class="card modcard" data-go="customs"><div class="ic">🚛</div><h3 style="margin-top:12px">Customs &amp; Excise</h3><p style="color:var(--muted);margin:0;font-size:12.5px">e-Clearance, track-and-trace for excisables, transit monitoring.</p></div>
+    </div>
+    <div class="grid cols-4" style="margin-top:16px">
+      <div class="card modcard" data-go="txmon"><div class="ic">📡</div><h3 style="margin-top:12px">Transaction Monitoring</h3><p style="color:var(--muted);margin:0;font-size:12.5px">Phase 1 foundation — real-time visibility, leakage radar, anomaly detection.</p></div>
+      <div class="card modcard" data-go="tp360"><div class="ic">🧭</div><h3 style="margin-top:12px">Taxpayer 360</h3><p style="color:var(--muted);margin:0;font-size:12.5px">One lifecycle record per taxpayer, unified from every source.</p></div>
+      <div class="card modcard" data-go="analytics"><div class="ic">📈</div><h3 style="margin-top:12px">Analytics &amp; BI</h3><p style="color:var(--muted);margin:0;font-size:12.5px">Revenue optimisation, governance &amp; board-ready reporting.</p></div>
+      <div class="card modcard" data-go="integrations"><div class="ic">🔌</div><h3 style="margin-top:12px">Integrations</h3><p style="color:var(--muted);margin:0;font-size:12.5px">Open, secure interoperability across CIPA, banks, customs &amp; more.</p></div>
     </div>
     <div class="card modcard" data-go="audit" style="margin-top:16px;border-left:4px solid var(--orange);display:flex;gap:16px;align-items:center">
       <div class="ic" style="background:#dceefc;flex-shrink:0">🔎</div>
@@ -224,13 +236,19 @@
       <p style="color:var(--muted);margin:0;font-size:12.5px">Snap a receipt, Omang or payslip → fields are read automatically and flow into the official BURS forms (ITW8, ITW7A, ITW10, VAT 002), ready to submit.</p></div>
       <button class="btn btn-primary">Open →</button>
     </div>
-    <div class="notes" id="notes-overview"><b>Pitch line:</b> "BURS already collects well — Lekgetho AI is about collecting <i>completely</i>. The 60% VAT leakage and the March-2026 mandate are the wedge; the same engine then lifts service, back-office and customs." Lead with the recovered-VAT number — it pays for the whole programme.</div>
+    <div class="card modcard" data-go="eoi" style="margin-top:12px;border-left:4px solid var(--navy3);display:flex;gap:16px;align-items:center">
+      <div class="ic" style="background:#dceefc;flex-shrink:0">✅</div>
+      <div style="flex:1"><h3 style="margin:0 0 3px">EOI Coverage — mapped to BURS/EOI/OPS/SER/12/2026-2027 <span class="pill blue">Phase 1 + 2</span></h3>
+      <p style="color:var(--muted);margin:0;font-size:12.5px">See every capability the EOI asks for mapped to a module you can click and watch working — Phase 1 (e-invoicing &amp; transaction monitoring) and Phase 2 (enterprise tax-management platform).</p></div>
+      <button class="btn btn-primary">View →</button>
+    </div>
+    <div class="notes" id="notes-overview"><b>Pitch line:</b> "BURS already collects well — Lekgetho AI is about collecting <i>completely</i>. The estimated VAT leakage and the e-invoicing mandate are the wedge; the same engine then lifts service, back-office and customs." Lead with the recovered-VAT number — it pays for the whole programme.</div>
   </section>
 
   <!-- ===================== E-INVOICING ===================== -->
   <section class="view" id="einvoice">
     <h2 class="title">e-Invoicing — Continuous Transaction Control</h2>
-    <p class="sub">Every VAT invoice is validated and cleared by BURS in real time before it reaches the buyer — the model going mandatory in March 2026.</p>
+    <p class="sub">Every VAT invoice is validated and cleared by BURS in real time before it reaches the buyer — the Continuous Transaction Control model BURS is adopting under its e-invoicing mandate.</p>
     <div class="grid cols-2">
       <div class="card">
         <h3>🧾 Submit invoice for clearance</h3>
@@ -312,7 +330,7 @@
           <div style="font-weight:700;margin-top:6px">Photograph or upload a document</div>
           <div style="font-size:11.5px;color:var(--muted)">Receipt · Omang ID · invoice · payslip — JPG / PNG</div>
         </label>
-        <input type="file" id="capFile" accept="image/*" capture="environment" style="display:none" onchange="onCapFile(event)">
+        <input type="file" id="capFile" accept="image/*" capture="environment" aria-label="Photograph or upload a document" style="display:none" onchange="onCapFile(event)">
         <div style="display:flex;align-items:center;gap:8px;margin:10px 0;flex-wrap:wrap">
           <span style="font-size:12px;color:var(--muted)">or try a sample:</span>
           <button class="btn btn-ghost2" onclick="loadSample('receipt')">VAT receipt</button>
@@ -451,6 +469,176 @@
     </div>
     <div class="notes" id="notes-customs"><b>Pitch line:</b> "Track-and-trace plus transit monitoring is how you stop excise dumping and diversion — the goods tell on themselves." Ties directly to BURS's stated track-and-trace and transit-monitoring plans.</div>
   </section>
+
+  <!-- ===================== TRANSACTION MONITORING (Phase 1) ===================== -->
+  <section class="view" id="txmon">
+    <h2 class="title">Transaction Monitoring — real-time revenue assurance</h2>
+    <p class="sub">Phase 1 foundation: near-real-time visibility over commercial transactions across the economy — the early-warning layer that detects leakage, under-declaration and anomalies as they happen, and feeds compliance intelligence to every other module.</p>
+    <div class="grid cols-4" style="margin-bottom:16px">
+      <div class="card kpi"><div class="label">Transactions monitored today</div><div class="val" data-count="1284502">0</div><div class="delta up">▲ live CTC stream</div></div>
+      <div class="card kpi"><div class="label">Value visible today</div><div class="val" style="font-size:22px">P612.4m</div><div class="delta up">real-time</div></div>
+      <div class="card kpi"><div class="label">Anomalies flagged</div><div class="val" style="font-size:22px;color:var(--amber)">487</div><div class="delta">auto-routed to audit</div></div>
+      <div class="card kpi"><div class="label">Revenue-assurance coverage</div><div class="val" data-count="98" data-suffix="%">0</div><div class="delta up">of expected VAT visible</div></div>
+    </div>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>🚨 Leakage radar — live anomaly detection</h3>
+        <table><thead><tr><th>Taxpayer (synthetic)</th><th>Signal</th><th>Severity</th></tr></thead>
+        <tbody>
+          <tr><td>Mokoro Mining Svc</td><td>Sales reported &lt; supplier-side invoices</td><td><span class="pill red">High</span></td></tr>
+          <tr><td>Kalahari Imports</td><td>Imports with no matching output VAT</td><td><span class="pill red">High</span></td></tr>
+          <tr><td>Setlhare Pharma</td><td>Round-number invoice clustering</td><td><span class="pill amber">Medium</span></td></tr>
+          <tr><td>Bonno Wholesale</td><td>Sudden drop in declared turnover</td><td><span class="pill amber">Medium</span></td></tr>
+          <tr><td>Diphetogo Foods</td><td>Velocity spike vs sector baseline</td><td><span class="pill blue">Watch</span></td></tr>
+        </tbody></table>
+      </div>
+      <div class="card">
+        <h3>📡 Live transaction stream <span class="pill green" style="margin-left:auto" id="txCount">monitoring…</span></h3>
+        <div class="feed" id="txfeed"></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>📊 Transaction visibility by sector (% of expected value seen in real time)</h3>
+      <div class="bars">
+        <div class="bar" style="height:96%"><span>Retail</span></div>
+        <div class="bar" style="height:88%"><span>Wholesale</span></div>
+        <div class="bar" style="height:71%"><span>Construction</span></div>
+        <div class="bar" style="height:64%"><span>Services</span></div>
+        <div class="bar" style="height:82%"><span>Mining</span></div>
+        <div class="bar" style="height:58%"><span>Informal</span></div>
+      </div>
+    </div>
+    <div class="notes" id="notes-txmon"><b>Pitch line:</b> "You cannot tax what you cannot see. Transaction Monitoring makes the whole economy visible in real time — and the invisible economy becomes addressable." This is the Phase-1 foundation the EOI asks for; everything else stands on it.</div>
+  </section>
+
+  <!-- ===================== TAXPAYER 360 (Phase 2) ===================== -->
+  <section class="view" id="tp360">
+    <h2 class="title">Taxpayer 360 — integrated lifecycle view</h2>
+    <p class="sub">Phase 2: one record per taxpayer across the full lifecycle — registration, filing, payment, audit and de-registration — assembled from every connected source. The single source of truth an officer needs, in one screen.</p>
+    <div class="card" style="margin-bottom:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <div><label class="f" style="margin:0">Taxpayer</label>
+        <select class="f" id="tp360Sel" style="min-width:260px" onchange="renderTp360()">
+          <option value="0">Naledi Holdings (Pty) Ltd — C0099310</option>
+          <option value="1">Phokoje Retail (Pty) Ltd — C0071204</option>
+          <option value="2">Tau Construction (Pty) Ltd — C0055019</option>
+        </select>
+      </div>
+      <div style="flex:1"></div>
+      <div style="font-size:11.5px;color:var(--muted)">Unified from: CIPA · Lekgetho Live · Bank feed · Customs · e-Invoicing</div>
+    </div>
+    <div class="grid cols-2">
+      <div class="card" id="tp360Profile"></div>
+      <div>
+        <div class="card" id="tp360Score" style="margin-bottom:16px"></div>
+        <div class="card" id="tp360Links"></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px"><h3>🗓️ Filing & payment timeline</h3><div id="tp360Timeline"></div></div>
+    <div class="notes" id="notes-tp360"><b>Pitch line:</b> "Today a taxpayer's story is scattered across CIPA, banks, customs and a dozen returns. Taxpayer 360 stitches it into one record — so officers act on the whole picture, not a fragment." Switch taxpayers to show the compliance score move.</div>
+  </section>
+
+  <!-- ===================== ANALYTICS & BI (Phase 2) ===================== -->
+  <section class="view" id="analytics">
+    <h2 class="title">Analytics &amp; Business Intelligence</h2>
+    <p class="sub">Phase 2: enterprise analytics for revenue optimisation, governance and reporting — turning the transaction firehose into decisions, forecasts and board-ready numbers.</p>
+    <div class="grid cols-4" style="margin-bottom:16px">
+      <div class="card kpi"><div class="label">Revenue mobilised (YTD)</div><div class="val" style="font-size:22px">P47.3bn</div><div class="delta up">39% of P120bn plan</div></div>
+      <div class="card kpi"><div class="label">Tax gap closed (YTD)</div><div class="val" style="font-size:22px;color:var(--green)">P3.9bn</div><div class="delta up">▲ vs P1.1bn prior yr</div></div>
+      <div class="card kpi"><div class="label">Voluntary compliance</div><div class="val" data-count="74" data-suffix="%">0</div><div class="delta up">▲ from 61%</div></div>
+      <div class="card kpi"><div class="label">Audit yield per officer</div><div class="val" style="font-size:22px">P2.4m</div><div class="delta up">▲ 3.1×</div></div>
+    </div>
+    <div class="grid cols-2">
+      <div class="card"><h3>💰 Revenue by tax type (BWP bn, YTD)</h3>
+        <div class="bars">
+          <div class="bar" style="height:92%"><span>VAT</span></div>
+          <div class="bar" style="height:78%"><span>PAYE</span></div>
+          <div class="bar" style="height:64%"><span>Corp</span></div>
+          <div class="bar" style="height:40%"><span>Customs</span></div>
+          <div class="bar" style="height:26%"><span>WHT</span></div>
+          <div class="bar" style="height:18%"><span>Other</span></div>
+        </div>
+      </div>
+      <div class="card"><h3>📈 Monthly collections trend (BWP bn)</h3>
+        <div class="bars">
+          <div class="bar" style="height:48%"><span>Jan</span></div>
+          <div class="bar" style="height:55%"><span>Feb</span></div>
+          <div class="bar" style="height:60%"><span>Mar</span></div>
+          <div class="bar" style="height:69%"><span>Apr</span></div>
+          <div class="bar" style="height:81%"><span>May</span></div>
+          <div class="bar" style="height:95%"><span>Jun</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>🎯 Tax-gap closure toward the P120bn 2024–2029 target</h3>
+      <div class="progressbar"><span style="width:39%"></span></div>
+      <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:12.5px;color:var(--muted)">
+        <span><b style="color:var(--navy)">P47.3bn</b> mobilised</span><span>39%</span><span>P120bn by Mar 2029 · illustrative</span>
+      </div>
+    </div>
+    <div class="notes" id="notes-analytics"><b>Pitch line:</b> "Every figure on this page is a live consequence of the transaction layer below it — BURS leadership and the Ministry get a single, real-time view of national revenue performance." Governance &amp; reporting (an EOI Phase-2 requirement) is this module's by-product.</div>
+  </section>
+
+  <!-- ===================== INTEGRATIONS / INTEROPERABILITY (Phase 2) ===================== -->
+  <section class="view" id="integrations">
+    <h2 class="title">Interoperability &amp; Integrations</h2>
+    <p class="sub">Phase 2: an open, standards-based integration layer connecting BURS to the institutions and systems that hold the data — national scalability and resilience by design, not bolt-on.</p>
+    <div class="grid cols-3">
+      <div class="card"><div class="ic" style="background:#dceefc">🏛️</div><h3 style="margin-top:10px">CIPA</h3><p style="color:var(--muted);font-size:12.5px;margin:0">Company registry, directors &amp; shareholders.</p><div style="margin-top:8px"><span class="pill green">Connected</span></div></div>
+      <div class="card"><div class="ic" style="background:#dceefc">🗄️</div><h3 style="margin-top:10px">Lekgetho Live</h3><p style="color:var(--muted);font-size:12.5px;margin:0">Core tax registration &amp; filing system.</p><div style="margin-top:8px"><span class="pill green">Connected</span></div></div>
+      <div class="card"><div class="ic" style="background:#dceefc">🏦</div><h3 style="margin-top:10px">Commercial banks</h3><p style="color:var(--muted);font-size:12.5px;margin:0">Payment &amp; inflow data via secure feeds.</p><div style="margin-top:8px"><span class="pill green">Connected</span></div></div>
+      <div class="card"><div class="ic" style="background:#dceefc">🛃</div><h3 style="margin-top:10px">Customs &amp; Excise</h3><p style="color:var(--muted);font-size:12.5px;margin:0">Import/export declarations &amp; transit.</p><div style="margin-top:8px"><span class="pill green">Connected</span></div></div>
+      <div class="card"><div class="ic" style="background:#dceefc">🪪</div><h3 style="margin-top:10px">National ID (Omang)</h3><p style="color:var(--muted);font-size:12.5px;margin:0">Digital identity &amp; taxpayer verification.</p><div style="margin-top:8px"><span class="pill amber">Pilot</span></div></div>
+      <div class="card"><div class="ic" style="background:#dceefc">💳</div><h3 style="margin-top:10px">e-Tax / ePayment</h3><p style="color:var(--muted);font-size:12.5px;margin:0">Returns, payments &amp; bank rails.</p><div style="margin-top:8px"><span class="pill green">Connected</span></div></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>🔌 Integration principles</h3>
+      <div style="font-size:13px;color:var(--muted);line-height:1.9">
+        ✔ Open API standards (REST / ISO 20022 / PINT e-invoicing) for vendor independence<br>
+        ✔ Event-driven, near-real-time data exchange — not nightly batch<br>
+        ✔ Role-based access, full audit trails, encryption in transit &amp; at rest<br>
+        ✔ Cloud-scalable + on-prem options for sovereignty and resilience<br>
+        ✔ Backwards-compatible with existing BURS systems — no rip-and-replace
+      </div>
+    </div>
+    <div class="notes" id="notes-integrations"><b>Pitch line:</b> "Interoperability is the difference between a tool and a platform. We connect to what BURS already runs and to the institutions that hold the truth — securely, at national scale." Directly answers the EOI's interoperability, scalability, resilience and cybersecurity requirements.</div>
+  </section>
+
+  <!-- ===================== EOI COVERAGE ===================== -->
+  <section class="view" id="eoi">
+    <h2 class="title">EOI Coverage — how Lekgetho AI maps to BURS's requirements</h2>
+    <p class="sub">Ref BURS/EOI/OPS/SER/12/2026-2027 · Domestic Tax Digitalisation Reform &amp; Modernisation. Each capability maps to a module you can click and see working. <b>Status reflects what is shown in this clickable concept prototype — not production deployments.</b></p>
+    <div class="card" style="margin-bottom:16px">
+      <h3>Phase 1 — Foundational Electronic Invoicing &amp; Transaction Monitoring</h3>
+      <table><thead><tr><th>EOI capability</th><th>Module</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Real-time / near-real-time transaction visibility</td><td>e-Invoicing (CTC) · Transaction Monitoring</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Invoice authentication &amp; traceability</td><td>e-Invoicing (CTC)</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Reduce leakage, under-declaration &amp; fraudulent invoicing</td><td>e-Invoicing · Smart Audit</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Compliance risk detection &amp; intelligence</td><td>Smart Audit · Transaction Monitoring</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Audit &amp; enforcement effectiveness</td><td>Back-Office (AI audit selection)</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Integrated transaction data ecosystems</td><td>Integrations · Transaction Monitoring</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Scalability, interoperability &amp; resilience</td><td>Integrations</td><td><span class="pill amber">Architecture</span></td></tr>
+      </tbody></table>
+    </div>
+    <div class="card" style="margin-bottom:16px">
+      <h3>Phase 2 — Enterprise Domestic Tax Management Platform</h3>
+      <table><thead><tr><th>EOI capability</th><th>Module</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Integrated taxpayer lifecycle management</td><td>Taxpayer 360</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Enterprise compliance management</td><td>Smart Audit</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Intelligence-driven enforcement</td><td>Back-Office</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Revenue optimisation</td><td>Analytics &amp; BI</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Taxpayer services &amp; digital engagement</td><td>Taxpayer Service</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Enterprise analytics &amp; business intelligence</td><td>Analytics &amp; BI</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Workflow automation</td><td>Smart Capture · Back-Office</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Governance &amp; reporting</td><td>Analytics &amp; BI</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Interoperability across systems &amp; institutions</td><td>Integrations</td><td><span class="pill green">Prototyped</span></td></tr>
+        <tr><td>Digital identity</td><td>Smart Capture (Omang / TIN)</td><td><span class="pill amber">Pilot</span></td></tr>
+      </tbody></table>
+    </div>
+    <div class="notes" id="notes-eoi"><b>Internal note (not for the client screen):</b> this demonstrates the <i>solution &amp; innovation</i> half of Mandatory Requirement 1. The EOI also has pass/fail gates on track record — ≥2 national tax-administration implementations + ≥2 reference letters — best met via a <b>consortium</b>. Still to produce: written technical proposal, commercial/funding model, company profile, 3-yr audited financials, certificate of incorporation, tax clearance.</div>
+  </section>
 </main>
 
 <footer>
@@ -467,7 +655,7 @@ tick();setInterval(tick,30000);
 /* ---------- tabs ---------- */
 function show(v){
   document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active',s.id===v));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.v===v));
+  document.querySelectorAll('.tab').forEach(t=>{var on=t.dataset.v===v;t.classList.toggle('active',on);t.setAttribute('aria-selected',on?'true':'false');});
   document.querySelectorAll('.notes').forEach(n=>n.classList.remove('show'));
   if(notesOn){var n=document.getElementById('notes-'+v);if(n)n.classList.add('show');}
   window.scrollTo({top:0,behavior:'smooth'});
@@ -503,7 +691,7 @@ function validateInvoice(){
   var checks=[],risk=0;
   // supplier
   var supVer=tinOk(sup)&&validTins.includes(sup);
-  if(supVer)checks.push([1,'Supplier TIN verified ('+sup+')']);
+  if(supVer)checks.push([1,'Supplier TIN verified ('+esc(sup)+')']);
   else if(tinOk(sup)){checks.push([0,'Supplier TIN format valid but not in registry']);risk+=35;}
   else {checks.push([0,'Invalid supplier TIN format']);risk+=45;}
   // buyer
@@ -560,7 +748,7 @@ var faq=[
   {k:['deadline','dates','when'],a:'Key dates: <b>VAT</b> — 25th monthly; <b>PAYE</b> — 15th monthly; <b>Corporate Tax</b> return — within 4 months of financial year-end. Want me to set a reminder?'}
 ];
 function botReply(q){q=q.toLowerCase();var best=null,score=0;faq.forEach(f=>{var s=f.k.filter(k=>q.includes(k)).length;if(s>score){score=s;best=f;}});return best?best.a:'Good question — I can help with VAT, PAYE, TIN registration, payments and refunds. For anything complex I\'ll route you to a BURS officer with your case already summarised. (Illustrative concept response.)';}
-function addMsg(t,who){var m=document.getElementById('msgs');var d=document.createElement('div');d.className='msg '+who;d.innerHTML=t;m.appendChild(d);m.scrollTop=m.scrollHeight;}
+function addMsg(t,who){var m=document.getElementById('msgs');var d=document.createElement('div');d.className='msg '+who;if(who==='user'){d.textContent=t;}else{d.innerHTML=t;}m.appendChild(d);m.scrollTop=m.scrollHeight;}
 function sendChat(){var inp=document.getElementById('chatIn');var v=inp.value.trim();if(!v)return;addMsg(v,'user');inp.value='';var t=document.createElement('div');t.className='msg bot';t.textContent='…';document.getElementById('msgs').appendChild(t);setTimeout(()=>{t.remove();addMsg(botReply(v),'bot');},650);}
 ['When is my VAT return due?','How do I register for a TIN?','PAYE on P15,000?','Setswana: Ke duela jang?'].forEach(c=>{var b=document.createElement('div');b.className='chip';b.textContent=c;b.onclick=()=>{document.getElementById('chatIn').value=c;sendChat();};document.getElementById('chips').appendChild(b);});
 addMsg('Dumela! 👋 I\'m the BURS taxpayer assistant. Ask me about VAT, PAYE, TIN registration, payments or refunds — in English or Setswana.','bot');
@@ -676,7 +864,7 @@ var capForms={
     secs:[['Employer details',[['Employer name','employer'],['Employer TIN','employerTin']]],
           ['Return period',[['Tax period (month)','month'],['Number of employees','']]],
           ['Remittance',[['Total gross emoluments (BWP)','gross'],['Total PAYE deducted (BWP)','paye'],['Amount remitted (BWP)','paye']]]]},
-  ITW10:{title:'ITW10 (PAYE) — Annual Withholding Tax Return',sub:'Employer annual reconciliation — auto-aggregated from the 12 monthly ITW7A submissions',
+  ITW10:{title:'ITW10 (PAYE) — Annual PAYE Reconciliation',sub:'Employer annual PAYE reconciliation — auto-aggregated from the 12 monthly ITW7A submissions',
     secs:[['Employer details',[['Employer name','employer'],['Employer TIN','employerTin']]],
           ['Tax year (1 Jul – 30 Jun)',[['Tax year','']]],
           ['Annual totals',[['Total number of employees',''],['Total annual emoluments (BWP)',''],['Total PAYE remitted (BWP)','']]]]},
@@ -696,7 +884,7 @@ function renderForm(){
   f.secs.forEach(s=>{h+='<div class="fsec">'+s[0]+'</div>';
     s[1].forEach(fl=>{var keys=fl.slice(1);var r=fieldVal(keys);var filled=r.k!=null;
       var badge=filled?'<span class="fbadge">📷 '+Math.round(extConf[r.k]*100)+'%</span>':'';
-      h+='<div class="ffield'+(filled?' filled':'')+'"><label>'+fl[0]+badge+'</label><input value="'+(r.v||'').toString().replace(/"/g,'&quot;')+'" placeholder="—"></div>';
+      h+='<div class="ffield'+(filled?' filled':'')+'"><label>'+fl[0]+badge+'</label><input value="'+esc(r.v)+'" placeholder="—"></div>';
     });
   });
   document.getElementById('captureForm').innerHTML=h;
@@ -704,7 +892,7 @@ function renderForm(){
 function renderEntities(){
   var keys=Object.keys(extracted);if(!keys.length){document.getElementById('capEntities').innerHTML='';return;}
   var h='<div style="font-size:11px;font-weight:800;color:var(--navy);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.4px">Extracted data ('+keys.length+' fields)</div>';
-  h+=keys.map(k=>'<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f1f4f8;font-size:12.5px"><span style="color:var(--muted)">'+k+'</span><span style="font-weight:600;text-align:right">'+extracted[k]+' <span class="pill '+(extConf[k]>0.92?'green':'amber')+'" style="font-size:9px;padding:2px 7px">'+Math.round(extConf[k]*100)+'%</span></span></div>').join('');
+  h+=keys.map(k=>'<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f1f4f8;font-size:12.5px"><span style="color:var(--muted)">'+esc(k)+'</span><span style="font-weight:600;text-align:right">'+esc(extracted[k])+' <span class="pill '+(extConf[k]>0.92?'green':'amber')+'" style="font-size:9px;padding:2px 7px">'+Math.round(extConf[k]*100)+'%</span></span></div>').join('');
   document.getElementById('capEntities').innerHTML=h;
 }
 function loadSample(key){
@@ -857,6 +1045,68 @@ function initBg3D(){
   }catch(e){} }
   (function wait(){ if(window.THREE){build();return;} if(tries++>40)return; setTimeout(wait,200); })();
 }
+/* ---------- shared escape helper (defence-in-depth for any user-derived text) ---------- */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+/* ---------- Taxpayer 360 (Phase 2 — integrated lifecycle view) ---------- */
+var tp360Data=[
+ {name:'Naledi Holdings (Pty) Ltd',tin:'C0099310',sector:'Wholesale',reg:'12 Mar 2019',status:'Active',
+  taxes:['VAT','PAYE','Corp Tax'],score:34,band:'At risk',
+  links:['Director also owns Mokoro Mining Svc','Director also owns Diphetogo Foods','Shares a bank account with Kalahari Imports'],
+  channels:['e-Tax (web)','mTax app','Contact centre — 4 calls/yr'],
+  timeline:[['Jun 2026','VAT return','flag'],['Jun 2026','PAYE (ITW7A)','match'],['May 2026','VAT return','match'],['Q1 2026','Provisional Corp Tax','minor'],['2025','Annual return','flag'],['2025','Field audit','open']]},
+ {name:'Phokoje Retail (Pty) Ltd',tin:'C0071204',sector:'Retail',reg:'04 Aug 2021',status:'Active',
+  taxes:['VAT','PAYE'],score:68,band:'Mostly compliant',
+  links:['No related entities on file'],
+  channels:['e-Tax (web)','mTax app'],
+  timeline:[['Jun 2026','VAT return','match'],['Jun 2026','PAYE (ITW7A)','match'],['May 2026','VAT return','minor'],['Apr 2026','VAT return','match'],['2025','Annual return','match']]},
+ {name:'Tau Construction (Pty) Ltd',tin:'C0055019',sector:'Construction',reg:'19 Jan 2015',status:'Active',
+  taxes:['VAT','PAYE','Corp Tax','Customs'],score:91,band:'Compliant',
+  links:['1 disclosed subsidiary — Tau Plant Hire (Pty) Ltd'],
+  channels:['e-Tax (web)','Registered tax agent','EDI bulk filing'],
+  timeline:[['Jun 2026','VAT return','match'],['Jun 2026','PAYE (ITW7A)','match'],['May 2026','VAT return','match'],['Q1 2026','Provisional Corp Tax','match'],['2025','Annual return','match'],['2025','Customs declarations','match']]}
+];
+function tpRow(k,v){return '<div style="display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid #f1f4f8;font-size:13px"><span style="color:var(--muted)">'+k+'</span><span style="font-weight:600;text-align:right">'+v+'</span></div>';}
+function renderTp360(){
+  var d=tp360Data[+document.getElementById('tp360Sel').value];
+  document.getElementById('tp360Profile').innerHTML='<h3>🏢 Identity &amp; registration</h3>'+
+    tpRow('Legal name',d.name)+tpRow('TIN',d.tin)+tpRow('Sector',d.sector)+tpRow('Registered',d.reg)+
+    tpRow('Status','<span class="pill green">'+d.status+'</span>')+
+    tpRow('Registered taxes',d.taxes.map(function(t){return '<span class="pill blue" style="margin-left:4px">'+t+'</span>';}).join(''));
+  var col=d.score>=80?'var(--green)':d.score>=50?'var(--amber)':'var(--red)';
+  document.getElementById('tp360Score').innerHTML='<h3>⚖️ Compliance score</h3><div style="display:flex;align-items:center;gap:16px"><div style="width:84px;height:84px;border-radius:50%;border:6px solid '+col+';display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0"><div style="font-size:24px;font-weight:800;color:'+col+'">'+d.score+'</div><div style="font-size:9px;color:var(--muted)">/100</div></div><div><span class="pill" style="background:'+col+';color:#fff">'+d.band+'</span><p style="margin:8px 0 0;font-size:12.5px;color:var(--muted)">Auto-computed from filing history, cross-source consistency and payment behaviour.</p></div></div>';
+  document.getElementById('tp360Links').innerHTML='<h3>🔗 Linked entities &amp; risk network</h3>'+d.links.map(function(l){return '<div style="font-size:12.5px;padding:6px 0;border-bottom:1px solid #f1f4f8">• '+l+'</div>';}).join('')+'<h3 style="margin-top:14px">📣 Engagement channels</h3>'+d.channels.map(function(c){return '<div style="font-size:12.5px;padding:5px 0;color:var(--muted)">'+c+'</div>';}).join('');
+  document.getElementById('tp360Timeline').innerHTML='<table><thead><tr><th>Period</th><th>Event</th><th>Status</th></tr></thead><tbody>'+d.timeline.map(function(t){var p=t[2]==='flag'?'<span class="pill red">Flagged</span>':t[2]==='minor'?'<span class="pill amber">Minor</span>':t[2]==='open'?'<span class="pill blue">Open</span>':'<span class="pill green">OK</span>';return '<tr><td>'+t[0]+'</td><td>'+t[1]+'</td><td>'+p+'</td></tr>';}).join('')+'</tbody></table>';
+}
+renderTp360();
+
+/* ---------- Transaction Monitoring — live stream ---------- */
+var txFirms=['Kgalagadi Traders','Thebe Logistics','Phokoje Retail','Tau Construction','Naledi Holdings','Setlhare Pharma','Kalahari Imports','Bonno Wholesale','Mokoro Mining','Diphetogo Foods','Gaborone Hardware','Maru Pharmacy'];
+var txN=1284502;
+function pushTx(){
+  var feed=document.getElementById('txfeed'); if(!feed) return;
+  var s=txFirms[Math.floor(Math.random()*txFirms.length)];
+  var amt=(Math.floor(Math.random()*240)+3)*1000;
+  var roll=Math.random(),st,cls;
+  if(roll>0.9){st='Anomaly';cls='red';}else if(roll>0.8){st='Review';cls='amber';}else{st='Matched';cls='green';}
+  var el=document.createElement('div');el.className='feeditem';
+  el.innerHTML='<span class="pill '+cls+'">'+st+'</span><div style="flex:1"><div style="font-weight:600">'+s+'</div><div style="font-size:11px;color:var(--muted)">TXN-'+(Math.floor(Math.random()*900000)+100000)+' • VAT P'+Math.round(amt*0.14).toLocaleString()+'</div></div><div style="font-weight:700;color:var(--navy)">P'+amt.toLocaleString()+'</div>';
+  feed.prepend(el);while(feed.children.length>9)feed.removeChild(feed.lastChild);
+  txN++;var c=document.getElementById('txCount');if(c)c.textContent=txN.toLocaleString()+' today';
+}
+for(var ti=0;ti<6;ti++)pushTx();
+setInterval(pushTx,2200);
+
+/* ---------- a11y + responsive-table hardening (audit fixes) ---------- */
+function wrapTables(){document.querySelectorAll('main table').forEach(function(t){var p=t.parentElement;if(p&&p.classList.contains('tablewrap'))return;var w=document.createElement('div');w.className='tablewrap';t.parentNode.insertBefore(w,t);w.appendChild(t);});}
+(function(){
+  var tl=document.querySelector('.navinner'); if(tl) tl.setAttribute('role','tablist');
+  document.querySelectorAll('.tab').forEach(function(t){t.setAttribute('role','tab');t.setAttribute('aria-controls',t.dataset.v);t.setAttribute('aria-selected',t.classList.contains('active')?'true':'false');});
+  document.querySelectorAll('.view').forEach(function(v){v.setAttribute('role','tabpanel');v.setAttribute('aria-label',(v.id||'panel')+' panel');});
+  ['feed','txfeed','msgs'].forEach(function(id){var e=document.getElementById(id);if(e){e.setAttribute('aria-live','polite');e.setAttribute('aria-atomic','false');}});
+  wrapTables();
+})();
+
 setTimeout(function(){init3D();initBg3D();attachTilt();},350);
 </script>
 </body>
