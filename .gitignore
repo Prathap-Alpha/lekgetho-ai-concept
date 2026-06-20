@@ -2,3 +2,7 @@
 _source_paper.txt
 
 .claude/
+
+# Manus deliverable package — contains partner contact details + internal brief. NEVER publish.
+manus-package/
+*.zip
