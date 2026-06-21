@@ -970,7 +970,7 @@ function init3D(){
         var mid=p0.clone().add(p1).multiplyScalar(0.5).normalize().multiplyScalar(R*(1.32+Math.random()*0.34));
         var curve=new THREE.QuadraticBezierCurve3(p0,mid,p1);
         g.add(new THREE.Mesh(new THREE.TubeGeometry(curve,32,0.012,6,false),
-          new THREE.MeshBasicMaterial({color:(a%2?0x0E9CB0:0xffffff),transparent:true,opacity:0.5,blending:THREE.AdditiveBlending})));
+          new THREE.MeshBasicMaterial({color:(a%2?0x0E9CB0:0xffffff),transparent:true,opacity:0.7,blending:THREE.AdditiveBlending})));
         var pulse=new THREE.Mesh(new THREE.SphereGeometry(0.045,8,8),
           new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0.95,blending:THREE.AdditiveBlending}));
         g.add(pulse); pulses.push({curve:curve,m:pulse,t:Math.random(),s:0.004+Math.random()*0.006});
@@ -1002,6 +1002,15 @@ function init3D(){
       disc.rotation.x=Math.PI/2;                 // face the camera
       coin.add(disc);
       coin.position.set(0.35,-1.12,1.1); coin.scale.setScalar(1.0);
+
+      /* ---- soft additive glow (bloom aesthetic pattern-mined from three.js; transparent-safe, no post-processing) ---- */
+      g.add(new THREE.Mesh(new THREE.SphereGeometry(R*1.22,32,32), new THREE.MeshBasicMaterial({color:0x16C2D6,transparent:true,opacity:0.05,blending:THREE.AdditiveBlending,side:THREE.BackSide,depthWrite:false})));
+      g.add(new THREE.Mesh(new THREE.SphereGeometry(R*1.06,32,32), new THREE.MeshBasicMaterial({color:0x0E9CB0,transparent:true,opacity:0.07,blending:THREE.AdditiveBlending,side:THREE.BackSide,depthWrite:false})));
+      function glowTex(){var c=document.createElement('canvas');c.width=c.height=64;var x=c.getContext('2d');var gr=x.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,'rgba(255,255,255,0.95)');gr.addColorStop(0.3,'rgba(170,235,255,0.55)');gr.addColorStop(1,'rgba(120,220,255,0)');x.fillStyle=gr;x.fillRect(0,0,64,64);return new THREE.CanvasTexture(c);}
+      var GT=glowTex();
+      for(var gi=0;gi<dots.length;gi++){var gs=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,blending:THREE.AdditiveBlending,transparent:true,depthWrite:false,opacity:0.85}));gs.scale.set(0.4,0.4,0.4);dots[gi].add(gs);}
+      for(var pj=0;pj<pulses.length;pj++){var ps=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,blending:THREE.AdditiveBlending,transparent:true,depthWrite:false,opacity:0.8}));ps.scale.set(0.28,0.28,0.28);pulses[pj].m.add(ps);}
+      var coinGlow=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,color:0xFFE08A,blending:THREE.AdditiveBlending,transparent:true,depthWrite:false,opacity:0.7}));coinGlow.scale.set(2.2,2.2,1);coin.add(coinGlow);
 
       var t0=null;
       function frame(ts){
