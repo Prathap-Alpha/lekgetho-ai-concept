@@ -19,6 +19,6 @@ Seven modules, all running on **synthetic data**:
 Download and open `index.html` in any modern browser. No build step, no internet connection required.
 
 ## Disclaimer
-Concept demonstration prepared by **Alpha Direct Insurance** for discussion purposes only.
+Concept demonstration prepared by **Beyond Growth Consultancy** for discussion purposes only.
 **Not affiliated with, endorsed by, or an official system of the Botswana Unified Revenue Service.**
 All taxpayers, TINs, figures and transactions shown are synthetic. Official BURS branding to be applied only with BURS authorisation.
